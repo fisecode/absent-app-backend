@@ -22,6 +22,7 @@ class Employee extends Model
         'phone',
         'address',
         'employee_id',
+        'doj',
         'division',
         'work_from',
     ];

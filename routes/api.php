@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AbsentController;
+use App\Http\Controllers\API\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('user', [UserController::class, 'updateProfile']);
     Route::post('user/photo', [UserController::class, 'updatePhoto']);
     Route::post('logout', [UserController::class, 'logout']);
+    Route::post('employee', [UserController::class, 'addEmployee']);
+    Route::post('password/reset', [PasswordController::class, 'reset']);
+    Route::post('absent', [AbsentController::class, 'store']);
 });
 
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
+Route::post('password/forgot', [PasswordController::class, 'sendResetLinkEmail']);

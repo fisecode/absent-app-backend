@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Actions\Fortify\PasswordValidationRules;
 
 class UserController extends Controller
 {
@@ -43,6 +44,9 @@ class UserController extends Controller
             //Jika User tidak ada tampilkan error
             $user = User::where('email', $request->email)->first();
             if (!Hash::check($request->password, $user->password, [])) {
+                throw new InvalidArgumentException('Invalid Credentials');
+            }
+            if ($user->roles != 'employee') {
                 throw new InvalidArgumentException('Invalid Credentials');
             }
 
@@ -94,6 +98,56 @@ class UserController extends Controller
         }
     }
 
+    public function addEmployee(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => $this->passwordRules(),
+                'gender' => ['required', 'string'],
+                'phone' => 'numeric',
+                'address' => 'required',
+                'employee_id' => ['required', 'unique:employees'],
+                'work_from' => 'required'
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'roles' => 'employee'
+            ]);
+            $user->save();
+
+            $employee = Employee::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'dob' => $request->dob,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'employee_id' => $request->employee_id,
+                'doj' => $request->doj,
+                'division' => $request->division,
+                'work_from' => $request->work_from,
+            ]);
+            $employee->save();
+
+            return ResponseFormatter::success(
+                $employee,
+                'Employee Added'
+            );
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Something whent wrong',
+                'error' => $error
+            ], $this->authFailed, 500);
+        }
+    }
+
     public function logout(Request $request)
     {
         $token = $request->user()->currentAccessToken()->delete();
@@ -102,7 +156,6 @@ class UserController extends Controller
 
     public function fetch(Request $request)
     {
-        // $employeeDetail = User::with('employee')->where('employee_id', Auth::user()->id)->get();
         $employeeDetail = Employee::with('user')->where('user_id', Auth::user()->id)->get();
         return ResponseFormatter::success(
             $employeeDetail,

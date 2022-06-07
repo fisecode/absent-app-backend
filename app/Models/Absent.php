@@ -26,7 +26,7 @@ class Absent extends Model
 
     public function employee()
     {
-        $this->belongsTo(Employee::class, 'id', 'employee_id');
+        $this->belongsTo(Employee::class, 'user_id', 'employee_id');
     }
 
     public function getCreatedAtAtrribute($value)

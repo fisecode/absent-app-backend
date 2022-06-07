@@ -63,11 +63,6 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    // public function employee()
-    // {
-    //     return $this->belongsTo(Employee::class);
-    // }
-
     public function getCreatedAtAtrribute($value)
     {
         return Carbon::parse($value)->timestamp;
