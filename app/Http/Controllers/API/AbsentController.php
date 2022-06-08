@@ -20,7 +20,7 @@ class AbsentController extends Controller
     {
         try {
             $request->validate([
-                'status' => ['required'],
+                'type' => ['required'],
                 'longitude' => ['required'],
                 'latitude' => ['required'],
                 'absent_spot' => ['required'],
@@ -29,31 +29,57 @@ class AbsentController extends Controller
                 'type' => ['in:in,out', 'required'],
             ]);
 
+
             $date = date("Y-m-d");
             $time = date("H:i:s");
             $photo = $request->file('photo');
-            $absent = Absent::create(
-                [
-                    'employee_id' => Auth::user()->id,
-                    'date' => $date,
-                    'status' => $request->status,
-                    'check_in' => $time,
-                    'check_out' => null,
-                    'longitude' => $request->longitude,
-                    'latitude' => $request->latitude,
-                    'absent_spot' => $request->absent_spot,
-                    'address' => $request->address,
-                    'photoPath' => $this->uploadImage($photo, $request->user()->name, 'absent'),
-                ]
-            );
-            $absent->save();
+            $absentStatus = $request->type;
+            $absent = new Absent;
+            $employeeAbsentToday = Absent::where('employee_id', Auth::user()->id)
+                ->whereDate('created_at', Carbon::today())
+                ->first();
 
-            return response()->json(
-                [
-                    'message' => 'Success'
-                ],
-                Response::HTTP_CREATED
-            );
+            if ($absentStatus == 'in') {
+                if (!$employeeAbsentToday) {
+                    $dataAbsent = ([
+                        'employee_id' => Auth::user()->id,
+                        'date' => $date,
+                        'status' => 'in',
+                        'check_in' => $time,
+                        'check_out' => null,
+                        'longitude' => $request->longitude,
+                        'latitude' => $request->latitude,
+                        'absent_spot' => $request->absent_spot,
+                        'address' => $request->address,
+                        'photoPath' => $this->uploadImage($photo, $request->user()->name, 'absent/' . $request->user()->name),
+                    ]
+                    );
+                    $absent->create($dataAbsent);
+
+                    return ResponseFormatter::success(
+                        $dataAbsent,
+                        'Employee successfully check in'
+                    );
+                }
+                return ResponseFormatter::success(
+                    [],
+                    'Employee has been checked in'
+                );
+            }
+
+            if ($absentStatus == 'out') {
+                if ($employeeAbsentToday) {
+                    if ($employeeAbsentToday->status == 'Present') {
+                        return ResponseFormatter::success(
+                            [],
+                            'Employee has been checked out'
+                        );
+                    }
+                    $dataAbsent = ([
+                        $absent->check_out = $time
+                    ]);
+                }
+            }
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',

@@ -23,13 +23,13 @@ trait ImageStorage
     public function uploadImage($photo, $name, $path, $update = false, $old_photo = null)
     {
         if ($update) {
-            Storage::delete("/public/{$path}/" . $old_photo);
+            Storage::delete("/public/assets/{$path}/" . $old_photo);
         }
 
         $name = Str::slug($name) . '-' . time();
         $extension = $photo->getClientOriginalExtension();
         $newName = $name . '.' . $extension;
-        Storage::putFileAs("/public/{$path}", $photo, $newName);
+        Storage::putFileAs("/public/assets/{$path}", $photo, $newName);
         return $newName;
     }
 
@@ -41,6 +41,6 @@ trait ImageStorage
      */
     public function deleteImage($old_photo, $path)
     {
-        Storage::delete("/public/{$path}" . $old_photo);
+        Storage::delete("/public/assets/{$path}" . $old_photo);
     }
 }
