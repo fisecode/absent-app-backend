@@ -22,12 +22,12 @@ class Leave extends Model
 
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'id', 'employee_id');
+        return $this->hasOne(Employee::class, 'employee_id', 'id');
     }
 
     public function leaveType()
     {
-        return $this->hasOne(LeaveType::class, 'id', 'leave_type_id');
+        return $this->hasOne(LeaveType::class, 'leave_type_id', 'id');
     }
 
     public function getCreatedAtAtrribute($value)
