@@ -16,7 +16,7 @@ class CreateAbsentsTable extends Migration
         Schema::create('absents', function (Blueprint $table) {
             $table->id();
             $table->integer('employee_id');
-            $table->string('date');
+            $table->date('date');
             $table->string('status');
             $table->time('check_in');
             $table->time('check_out');
