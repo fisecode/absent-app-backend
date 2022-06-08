@@ -34,6 +34,8 @@
                 </div>
                 @endif
 
+                <a href="{{ route('dashboardusers.create') }}" class="btn btn-sm btn-primary mb-2">Add</a>
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
