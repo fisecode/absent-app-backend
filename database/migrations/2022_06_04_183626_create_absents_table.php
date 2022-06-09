@@ -17,14 +17,15 @@ class CreateAbsentsTable extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->date('date');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->time('check_in');
-            $table->time('check_out');
+            $table->time('check_out')->nullable();
+            $table->string('absent_spot');
             $table->string('longitude');
             $table->string('latitude');
-            $table->string('absent_spot');
             $table->text('address');
             $table->text('photoPath');
+            $table->enum('type', ['in', 'out']);
             $table->timestamps();
         });
     }

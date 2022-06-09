@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaveTypesTable extends Migration
+class CreateAbsentSpotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateLeaveTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leave_types', function (Blueprint $table) {
+        Schema::create('absent_spots', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('days')->nullable();
+            $table->integer('employee_id');
+            $table->string('name_spot')->default('Office');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->text('address');
+
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateLeaveTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leave_types');
+        Schema::dropIfExists('absent_spots');
     }
 }

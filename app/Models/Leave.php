@@ -27,7 +27,7 @@ class Leave extends Model
 
     public function leaveType()
     {
-        return $this->hasOne(LeaveType::class, 'leave_type_id', 'id');
+        return $this->hasOne(LeaveType::class, 'id', 'leave_type_id');
     }
 
     public function getCreatedAtAtrribute($value)

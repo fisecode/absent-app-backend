@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add([
                 'text'        => 'Users',
                 'url'         => 'dashboard/users',
-                'icon'        => 'users',
+                'icon'        => 'fas fa-fw fa-user',
                 'label'       => $usersCount,
                 'label_color' => 'success'
             ]);
