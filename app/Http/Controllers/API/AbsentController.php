@@ -133,7 +133,7 @@ class AbsentController extends Controller
         ]);
 
         $absentSpot = new AbsentSpot();
-        $absentSpotExist = $absentSpot->where('employee_id', Auth::user()->id)->first();
+        $absentSpotExist = AbsentSpot::where('employee_id', Auth::user()->id)->first();
 
         if (!$absentSpotExist) {
             $dataAbsentSpot = ([
@@ -142,15 +142,32 @@ class AbsentController extends Controller
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
                 'address' => $request->address,
+                'status' => 'Pending'
             ]);
             $absentSpot->create($dataAbsentSpot);
+            return ResponseFormatter::success(
+                [],
+                'Change request absent spot has been sent.'
+            );
+        }
+
+        if ($absentSpotExist->status == 'Pending') {
+            return ResponseFormatter::success(
+                [],
+                'You already request, Wait for approval.'
+            );
         }
         $dataAbsentSpot = ([
             'name_spot' => $request->name_spot,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'address' => $request->address,
+            'status' => 'Pending'
         ]);
-        $absentSpot->update($dataAbsentSpot);
+        $absentSpotExist->update($dataAbsentSpot);
+        return ResponseFormatter::success(
+            [],
+            'Change request absent spot has been sent.'
+        );
     }
 }

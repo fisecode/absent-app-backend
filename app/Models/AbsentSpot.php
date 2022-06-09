@@ -15,6 +15,7 @@ class AbsentSpot extends Model
         'latitude',
         'longitude',
         'address',
+        'status'
     ];
 
     public function employee()

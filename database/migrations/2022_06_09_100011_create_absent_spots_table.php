@@ -20,6 +20,7 @@ class CreateAbsentSpotsTable extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->text('address');
+            $table->string('status');
 
             $table->timestamps();
         });
