@@ -53,6 +53,17 @@
                                     <th></th>
                                 </tr>
                             </thead>
+                            {{--  <tbody>
+                                @foreach ($users as $user )
+
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                </tr>
+
+                                @endforeach
+                            </tbody>  --}}
                         </table>
 
                     </div>
@@ -74,7 +85,7 @@
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: 'user',
+            ajax: '/user',
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
