@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add('MAIN NAVIGATION');
             $event->menu->add([
                 'text'        => 'Users',
-                'url'         => 'user',
+                'url'         => 'dashboard/users',
                 'icon'        => 'users',
                 'label'       => $usersCount,
                 'label_color' => 'success'

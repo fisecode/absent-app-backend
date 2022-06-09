@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('employee', [UserController::class, 'addEmployee']);
     Route::post('password/reset', [PasswordController::class, 'reset']);
-    Route::post('absent', [AbsentController::class, 'store']);
+    Route::post('absent', [AbsentController::class, 'attendance']);
 });
 
 Route::post('login', [UserController::class, 'login']);

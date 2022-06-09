@@ -34,6 +34,8 @@
                 </div>
                 @endif
 
+                <a href="{{ route('dashboardusers.create') }}" class="btn btn-sm btn-primary mb-2">Add</a>
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
@@ -53,17 +55,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            {{--  <tbody>
-                                @foreach ($users as $user )
+                            <tbody>
 
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                </tr>
-
-                                @endforeach
-                            </tbody>  --}}
+                            </tbody>
                         </table>
 
                     </div>
@@ -78,19 +72,19 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: '/user',
+            ajax: 'users',
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', name: 'action', orderable: true, searchable: false}
             ]
         });
     });

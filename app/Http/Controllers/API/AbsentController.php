@@ -16,7 +16,7 @@ class AbsentController extends Controller
 {
     use ImageStorage;
 
-    public function store(Request $request)
+    public function attendance(Request $request)
     {
         try {
             $request->validate([
@@ -26,6 +26,7 @@ class AbsentController extends Controller
                 'absent_spot' => ['required'],
                 'address' => ['required'],
                 'photo' => ['required'],
+                'type' => ['in:in,out', 'required'],
             ]);
 
 

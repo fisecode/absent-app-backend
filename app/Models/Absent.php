@@ -21,12 +21,13 @@ class Absent extends Model
         'latitude',
         'absent_spot',
         'address',
-        'photoPath'
+        'photoPath',
+        'type'
     ];
 
     public function employee()
     {
-        $this->belongsTo(Employee::class, 'user_id', 'employee_id');
+        $this->belongsTo(Employee::class, 'user_id', 'id');
     }
 
     public function getCreatedAtAtrribute($value)
