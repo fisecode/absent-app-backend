@@ -21,8 +21,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('dashboard')
-    ->middleware(['auth:sanctum', 'admin'])->name('dashboard')
+    ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
-        Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('users', UserController::class);
     });

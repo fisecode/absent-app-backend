@@ -27,9 +27,9 @@ class UserController extends Controller
                 ->addColumn('action', function ($data) {
                     return view('layouts._action', [
                         'model' => $data,
-                        'edit_url' => route('dashboardusers.edit', $data->id),
-                        'show_url' => route('dashboardusers.show', $data->id),
-                        'delete_url' => route('dashboardusers.destroy', $data->id),
+                        'edit_url' => route('users.edit', $data->id),
+                        'show_url' => route('users.show', $data->id),
+                        'delete_url' => route('users.destroy', $data->id),
                     ]);
                 })
                 ->rawColumns(['action'])
