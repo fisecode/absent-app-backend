@@ -45,7 +45,7 @@
                                         <img src="{{ asset('/storage/assets/profile/' . Auth::user()->profile_photo_path) }}"
                                             alt="avatar" class="rounded-circle img-fluid"
                                             style="width: 100px; height: 100px">
-                                        <h5 class="my-3">John Smith</h5>
+                                        <h5 class="my-3">{{ $user->name }}</h5>
                                         <p class="text-muted mb-1">Full Stack Developer</p>
                                         <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                         <div class="d-flex justify-content-center mb-2">
