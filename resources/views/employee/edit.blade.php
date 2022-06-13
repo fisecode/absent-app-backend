@@ -31,9 +31,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <!-- Attendance Chart -->
-                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary mb-2">Back</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-primary mb-2">Back</a>
 
                     <div class="card">
                         <div class="card-header">
@@ -45,7 +43,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
 
-                            <form action="{{ route('users.update', $user->id) }}" method="post"
+                            <form action="{{ route('user.update', $user->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf @method('PUT')
                                 <div class="form-group">

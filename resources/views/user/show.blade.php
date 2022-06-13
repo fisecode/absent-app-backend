@@ -212,7 +212,7 @@
                     </div>
                 </section>
                 <section class="col-lg-12">
-                    <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary mb-2">Back</a>
+                    <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary mb-2">Back</a>
 
                     <div class="card">
                         <div class="card-header">
@@ -240,7 +240,7 @@
                                     <tr>
                                         <th>Photo</th>
                                         <td><img width="350"
-                                                src="{{ asset('/storage/assets/profile/' . $user->profile_photo_path) }}"
+                                                src="{{ asset('/storage/assets/user/' . $user->profile_photo_path) }}"
                                                 alt=""></td>
                                     </tr>
                                 </tbody>

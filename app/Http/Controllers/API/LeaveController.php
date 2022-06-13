@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Leave;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\LeaveType;
 use Illuminate\Support\Facades\Auth;
 
 class LeaveController extends Controller
@@ -25,9 +27,10 @@ class LeaveController extends Controller
             $tgl2 = strtotime($request->end_date);
             $days = $tgl2 - $tgl1;
             $totalDays = $days / 60 / 60 / 24 + 1;
+            $getEmployee = Employee::where('user_id', Auth::user()->id)->first();
 
             $leave = Leave::create([
-                'employee_id' => Auth::user()->id,
+                'employee_id' => $getEmployee->id,
                 'leave_type_id' => $request->leave_type_id,
                 'applied_on' => $date,
                 'start_date' => $request->start_date,
@@ -56,6 +59,15 @@ class LeaveController extends Controller
         return ResponseFormatter::success(
             $history,
             'List of Leave History'
+        );
+    }
+
+    public function leaveType()
+    {
+        $leaveType = LeaveType::all();
+        return ResponseFormatter::success(
+            $leaveType,
+            'List of Leave Types'
         );
     }
 }

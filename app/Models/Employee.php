@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Absent;
+use App\Models\AbsentSpot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -29,12 +30,17 @@ class Employee extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function absent()
     {
         return $this->hasMany(Absent::class);
+    }
+
+    public function absentSpot()
+    {
+        return $this->belongsTo(AbsentSpot::class, 'id', 'employee_id');
     }
 
     public function getCreatedAtAtrribute($value)

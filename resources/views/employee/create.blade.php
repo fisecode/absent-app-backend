@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -60,7 +60,7 @@
                                     <label for="photo">Photo</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="image" accept="image/*"
+                                            <input type="file" class="custom-file-input" name="photo" accept="image/*"
                                                 required>
                                             <label class="custom-file-label" for="photo">Choose file</label>
                                         </div>
@@ -75,52 +75,6 @@
                         </form>
                     </div>
                     <!-- /.card -->
-
-                    {{-- <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="ion ion-clipboard mr-1"></i>
-                            Add User
-                        </h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <form action="{{ route('dashboardusers.store') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" name="name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">E-Mail</label>
-                                <input type="email" name="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="password" name="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="" style="display: block">Is Admin</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="is_admin" type="radio" id="inlineRadio1" value="1">
-                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="is_admin" type="radio" id="inlineRadio2" value="0">
-                                    <label class="form-check-label" for="inlineRadio2">No</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Photo</label>
-                                <input type="file" name="image" class="form-control-file">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-
-                    </div>
-                </div>
-                <!-- /.card --> --}}
                 </section>
                 <!-- /.Left col -->
             </div>
@@ -128,11 +82,3 @@
         </div><!-- /.container-fluid -->
     </section>
 @endsection
-
-@push('js')
-    <script>
-        $(function() {
-            bsCustomFileInput.init();
-        });
-    </script>
-@endpush

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +22,15 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
+Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('dashboard')
     ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('users', UserController::class);
+        Route::get('/dashboard/user/delete/{id}', [UserController::class, 'delete'])->name('delete');
+        Route::get('/dashboard/user/{id}/password', [UserController::class, 'showPassword'])->name('show.password');
+        Route::put('/dashboard/user/{id}/password/update', [UserController::class, 'updatePassword'])->name('update.password');
+        Route::resource('user', UserController::class);
+        Route::resource('employee', EmployeeController::class);
     });

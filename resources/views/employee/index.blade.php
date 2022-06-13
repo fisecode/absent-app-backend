@@ -33,7 +33,7 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary mb-2">Add</a>
+                    <a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary mb-2">Add</a>
 
                     <div class="card">
                         <div class="card-header">
@@ -48,10 +48,13 @@
                             <table class="table" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>E-Mail</th>
-                                        <th></th>
+                                        <th>EMPLOYEE ID</th>
+                                        <th>NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>DATE OF JOINING</th>
+                                        <th>DIVISION</th>
+                                        <th>WORK FROM</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,10 +80,13 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: 'users',
+                ajax: 'employee',
+                "fnDrawCallback": function() {
+                    $('[data-toggle="tooltip"]').tooltip();
+                },
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: 'employee_id',
+                        name: 'employee_id'
                     },
                     {
                         data: 'name',
@@ -89,6 +95,19 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'doj',
+                        name: 'doj',
+                        type: 'datetime',
+                    },
+                    {
+                        data: 'division',
+                        name: 'division'
+                    },
+                    {
+                        data: 'work_from',
+                        name: 'work_from'
                     },
                     {
                         data: 'action',

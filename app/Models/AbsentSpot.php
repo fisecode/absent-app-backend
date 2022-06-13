@@ -20,6 +20,6 @@ class AbsentSpot extends Model
 
     public function employee()
     {
-        return $this->hashOne(Employee::class, 'id', 'employee_id');
+        return $this->hasOne(Employee::class, 'id', 'employee_id');
     }
 }

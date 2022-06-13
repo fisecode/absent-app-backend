@@ -120,7 +120,6 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
                 'roles' => 'employee'
             ]);
-            $user->save();
 
             $employee = Employee::create([
                 'user_id' => $user->id,
@@ -136,7 +135,6 @@ class UserController extends Controller
                 'division' => $request->division,
                 'work_from' => $request->work_from,
             ]);
-            $employee->save();
 
             return ResponseFormatter::success(
                 $employee,
@@ -194,14 +192,12 @@ class UserController extends Controller
 
         if ($photo) {
             // $file = $this->uploadImage($photo, $request->user()->name, 'absent');
-
-
             $user = Auth::user();
-            $oldPhoto = $user->profile_photo_path;
-            $user->profile_photo_path = $this->uploadImage($photo, $request->user()->name, 'user', true, $oldPhoto);
+            $oldPhoto = $user->photo;
+            $user->photo = $this->uploadImage($photo, $request->user()->name, 'user', true, $oldPhoto);
             $user->update();
 
-            return ResponseFormatter::success([$user->profile_photo_path], 'File successfully uploaded');
+            return ResponseFormatter::success([$user->photo], 'File successfully uploaded');
         }
     }
 }

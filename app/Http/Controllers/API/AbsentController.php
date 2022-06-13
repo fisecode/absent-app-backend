@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 
 class AbsentController extends Controller
@@ -20,38 +21,38 @@ class AbsentController extends Controller
     {
         try {
             $request->validate([
-                'longitude' => ['required'],
-                'latitude' => ['required'],
+                'longitude'   => ['required'],
+                'latitude'    => ['required'],
                 'absent_spot' => ['required'],
-                'address' => ['required'],
-                'photo' => ['required'],
-                'type' => ['in:in,out', 'required'],
+                'address'     => ['required'],
+                'photo'       => ['required'],
+                'type'        => ['in:in,out', 'required'],
             ]);
 
-
-            $date = date("Y-m-d");
-            $time = date("H:i:s");
-            $photo = $request->file('photo');
-            $absentType = $request->type;
-            $absent = new Absent;
-            $employeeAbsentToday = Absent::where('employee_id', Auth::user()->id)
+            $date                = date("Y-m-d");
+            $time                = date("H:i:s");
+            $photo               = $request->file('photo');
+            $absentType          = $request->type;
+            $absent              = new Absent;
+            $getEmployee         = Employee::where('user_id', Auth::user()->id)->first();
+            $employeeAbsentToday = Absent::where('employee_id', $getEmployee->id)
                 ->whereDate('created_at', Carbon::today())
                 ->first();
 
             if ($absentType == 'in') {
                 if (!$employeeAbsentToday) {
                     $dataAbsent = ([
-                        'employee_id' => Auth::user()->id,
-                        'date' => $date,
-                        'status' => null,
-                        'check_in' => $time,
-                        'check_out' => null,
-                        'longitude' => $request->longitude,
-                        'latitude' => $request->latitude,
+                        'employee_id' => $getEmployee->id,
+                        'date'        => $date,
+                        'status'      => null,
+                        'check_in'    => $time,
+                        'check_out'   => null,
+                        'longitude'   => $request->longitude,
+                        'latitude'    => $request->latitude,
                         'absent_spot' => $request->absent_spot,
-                        'address' => $request->address,
-                        'photoPath' => $this->uploadImage($photo, $request->user()->name, 'absent/' . $request->user()->name),
-                        'type' => 'in'
+                        'address'     => $request->address,
+                        'photoPath'   => $this->uploadImage($photo, $request->user()->name, 'absent/' . $request->user()->name),
+                        'type'        => 'in'
                     ]
                     );
                     $absent->create($dataAbsent);
@@ -76,9 +77,9 @@ class AbsentController extends Controller
                         );
                     }
                     $dataAbsent = ([
-                        'status' => 'Present',
+                        'status'    => 'Present',
                         'check_out' => $time,
-                        'type' => 'out'
+                        'type'      => 'out'
                     ]);
                     $employeeAbsentToday->update($dataAbsent);
 
@@ -95,7 +96,7 @@ class AbsentController extends Controller
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
-                'error' => $error
+                'error'   => $error
             ], 'Absent Failed', 500);
         }
     }
@@ -105,13 +106,14 @@ class AbsentController extends Controller
         $request->validate(
             [
                 'from' => ['required'],
-                'to' => ['required'],
+                'to'   => ['required'],
             ]
         );
 
-        $history = Absent::where('employee_id', Auth::user()->id)
+        $getEmployee = Employee::where('user_id', Auth::user()->id)->first();
+        $history     = Absent::where('employee_id', $getEmployee->id)
             ->whereBetween(
-                DB::raw('DATE(created_at)'),
+                DB::raw('DATE(date)'),
                 [
                     $request->from, $request->to
                 ]
@@ -127,22 +129,23 @@ class AbsentController extends Controller
     {
         $request->validate([
             'name_spot' => ['required'],
-            'latitude' => ['required'],
+            'latitude'  => ['required'],
             'longitude' => ['required'],
-            'address' => ['required'],
+            'address'   => ['required'],
         ]);
 
-        $absentSpot = new AbsentSpot();
-        $absentSpotExist = AbsentSpot::where('employee_id', Auth::user()->id)->first();
+        $absentSpot      = new AbsentSpot();
+        $getEmployee     = Employee::where('user_id', Auth::user()->id)->get();
+        $absentSpotExist = AbsentSpot::where('employee_id', $getEmployee->id)->get();
 
         if (!$absentSpotExist) {
             $dataAbsentSpot = ([
-                'employee_id' => Auth::user()->id,
-                'name_spot' => $request->name_spot,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'address' => $request->address,
-                'status' => 'Pending'
+                'employee_id' => $getEmployee->id,
+                'name_spot'   => $request->name_spot,
+                'latitude'    => $request->latitude,
+                'longitude'   => $request->longitude,
+                'address'     => $request->address,
+                'status'      => 'Pending'
             ]);
             $absentSpot->create($dataAbsentSpot);
             return ResponseFormatter::success(
@@ -159,15 +162,25 @@ class AbsentController extends Controller
         }
         $dataAbsentSpot = ([
             'name_spot' => $request->name_spot,
-            'latitude' => $request->latitude,
+            'latitude'  => $request->latitude,
             'longitude' => $request->longitude,
-            'address' => $request->address,
-            'status' => 'Pending'
+            'address'   => $request->address,
+            'status'    => 'Pending'
         ]);
         $absentSpotExist->update($dataAbsentSpot);
         return ResponseFormatter::success(
             [],
             'Change request absent spot has been sent.'
+        );
+    }
+
+    public function getAbsentSpot()
+    {
+        $getEmployee   = Employee::where('user_id', Auth::user()->id)->first();
+        $getAbsentSpot = Employee::with('absentSpot')->where('id', $getEmployee->id)->get();
+        return         ResponseFormatter::success(
+            $getAbsentSpot,
+            'Get Absent Spot Success'
         );
     }
 }

@@ -18,10 +18,10 @@
     {{-- User menu toggler --}}
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         @if (config('adminlte.usermenu_image'))
-            @if (Auth::user()->profile_photo_path)
-                <img src="{{ asset('/storage/assets/profile/' . Auth::user()->profile_photo_path) }}"
+            @if (Auth::user()->photo)
+                <img src="{{ asset('/storage/assets/user/' . Auth::user()->photo) }}"
                     class="user-image img-circle elevation-2" alt="{{ Auth::user()->name }}">
-            @elseif (Auth::user()->profile_photo_path)
+            @elseif (Auth::user()->photo)
                 <img src="#" class="user-image img-circle elevation-2" alt="{{ Auth::user()->name }}">
             @endif
 
@@ -32,18 +32,28 @@
     </a>
 
     {{-- User menu dropdown --}}
+    {{--  <div class="dropdown-menu" style="width:50%">
+        <a class="dropdown-item  @if (!$profile_url) btn-block @endif" href="#"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fa fa-fw fa-power-off text-red"></i>
+            {{ __('adminlte::adminlte.log_out') }}
+        </a>
+
+        
+    </div>  --}}
+
     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-        {{-- User menu header --}}
-        @if (!View::hasSection('usermenu_header') && config('adminlte.usermenu_header'))
+    {{-- User menu header --}}
+    @if (!View::hasSection('usermenu_header') && config('adminlte.usermenu_header'))
             <li
                 class="user-header {{ config('adminlte.usermenu_header_class', 'bg-primary') }}
                 @if (!config('adminlte.usermenu_image')) h-auto @endif">
                 @if (config('adminlte.usermenu_image'))
-                    @if (Auth::user()->profile_photo_path)
-                        <img src="{{ asset('/storage/assets/profile/' . Auth::user()->profile_photo_path) }}"
+                    @if (Auth::user()->photo)
+                        <img src="{{ asset('/storage/assets/user/' . Auth::user()->photo) }}"
                             class="user-image img-circle elevation-2" alt="{{ Auth::user()->name }}">
-                    @elseif (!Auth::user()->profile_photo_path)
+                    @elseif (!Auth::user()->photo)
                         <img src="#" class="user-image img-circle elevation-2" alt="{{ Auth::user()->name }}">
                     @endif
 
@@ -59,25 +69,25 @@
             @yield('usermenu_header')
         @endif
 
-        {{-- Configured user menu links --}}
-        @each('adminlte::partials.navbar.dropdown-item', $adminlte->menu('navbar-user'), 'item')
+    {{-- Configured user menu links --}}
+    @each('adminlte::partials.navbar.dropdown-item', $adminlte->menu('navbar-user'), 'item')
 
-        {{-- User menu body --}}
-        @hasSection('usermenu_body')
+    {{-- User menu body --}}
+    @hasSection('usermenu_body')
             <li class="user-body">
                 @yield('usermenu_body')
             </li>
         @endif
 
-        {{-- User menu footer --}}
-        <li class="user-footer">
+    {{-- User menu footer --}}
+    <div class="user-footer">
             @if ($profile_url)
-                <a href="{{ route('users.show', Auth::user()->id) }}" class="btn btn-default btn-flat">
+                <a href="{{ route('user.show', Auth::user()->id) }}" class="btn btn-default btn-flat">
                     <i class="fa fa-fw fa-user text-lightblue"></i>
                     {{ __('adminlte::menu.profile') }}
                 </a>
             @endif
-            <a class="btn btn-default btn-flat float-right @if (!$profile_url) btn-block @endif" href="#"
+                <a class="btn btn-default btn-flat float-right @if (!$profile_url) btn-block @endif" href="#"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-fw fa-power-off text-red"></i>
                 {{ __('adminlte::adminlte.log_out') }}
@@ -88,7 +98,7 @@
                 @endif
                 {{ csrf_field() }}
             </form>
-        </li>
+    </div>
 
     </ul>
 

@@ -1,14 +1,8 @@
-<form action="{{ url($delete_url) }}" method="post">
-    @csrf @method('DELETE')
     @if ($edit_url)
-        <a href="{{ $edit_url }}" class="btn btn-sm btn-info text-white">Edit</a>
+        <a href="{{ $edit_url }}" class="btn btn-sm btn-warning text-white" data-toggle="tooltip"
+            data-title="Edit"><i class="fas fa-pen"></i></a>
     @endif
-    <a href="{{ $show_url }}" class="btn btn-sm btn-secondary">Show</a>
     @if ($delete_url)
-    <button
-    type="submit"
-    class="btn btn-danger btn-sm"
-    onclick="return confirm('Are you sure want to delete this data ?')"
-    >Delete</button>
+        <a href="#" data-url="{{ $delete_url }}" class="btn btn-sm btn-outline-light" data-ajax-popup="true"
+            data-toggle="tooltip" data-title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a>
     @endif
-</form>

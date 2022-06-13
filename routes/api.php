@@ -32,8 +32,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('absent', [AbsentController::class, 'absent']);
     Route::get('absent/history', [AbsentController::class, 'history']);
     Route::post('absent/spot', [AbsentController::class, 'absentSpot']);
+    Route::get('absent/spot', [AbsentController::class, 'getAbsentSpot']);
     Route::post('leave', [LeaveController::class, 'leave']);
     Route::get('leave/history', [LeaveController::class, 'history']);
+    Route::get('leave/types', [LeaveController::class, 'leaveType']);
 });
 
 Route::post('login', [UserController::class, 'login']);

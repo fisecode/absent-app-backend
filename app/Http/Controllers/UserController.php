@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Traits\ImageStorage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -18,26 +18,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            // $data = User::where('roles', 'ADMIN');
-            $data = User::all();
-
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    return view('layouts._action', [
-                        'model' => $data,
-                        'edit_url' => route('users.edit', $data->id),
-                        'show_url' => route('users.show', $data->id),
-                        'delete_url' => route('users.destroy', $data->id),
-                    ]);
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        $users = User::where('roles', 'admin')->paginate(9);
 
         // $users = User::paginate(5);
-        return view('users.index');
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -47,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('user.create');
     }
 
     /**
@@ -58,17 +42,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     => 'required',
+                'email'    => 'required|unique:users',
+                'password' => 'required',
+                'image'    => 'required|image|max:2048'
+            ]
+        );
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
+
+            session()->flash('error', $messages->first());
+            return redirect()->back();
+        }
         $photo = $request->file('image');
 
         if ($photo) {
-            $request['photo'] = $this->uploadImage($photo, $request->name, 'profile');
+            $request['photo'] = $this->uploadImage($photo, $request->name, 'user');
         }
 
         $request['password'] = Hash::make($request->password);
+        $request['roles'] = 'Admin';
 
         User::create($request->all());
-
-        return redirect()->route('dashboardusers.index');
+        session()->flash('success', 'User Created.');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -92,7 +92,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -104,7 +104,35 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'email' => 'unique:users,email,' . $id,
+            ]
+        );
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
+
+            session()->flash('error', $messages->first());
+            return redirect()->back();
+        }
+        $user = User::findOrFail($id);
+        $photo = $request->file('image');
+
+        if ($photo) {
+            $request['photo'] = $this->uploadImage($photo, $request->name, 'user', true, $user->photo);
+        }
+
+        if ($request->password) {
+            $request['password'] = Hash::make($request->password);
+        } else {
+            $request['password'] = $user->password;
+        }
+
+        $user->update($request->all());
+        session()->flash('success', 'User successfully updated.');
+        return redirect()->back();
     }
 
     /**
@@ -115,5 +143,43 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::findOrFail($id);
+        $photo = $user->photo;
+
+        if ($photo) {
+            $this->deleteImage($photo, 'user');
+        }
+
+        $user->delete();
+        session()->flash('success', 'User successfully deleted.');
+        return redirect()->back();
+    }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.delete', compact('user'));
+    }
+
+    public function showPassword($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.password', compact('user'));
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'password' => 'required|min:8',
+                'password_confirmation' => 'required|same:password',
+            ]
+        );
+        $user = User::find($id);
+        $request_data = $request->All();
+        $user->password = Hash::make($request_data['password']);
+        $user->save();
+        session()->flash('success', 'Change Password Successfully.');
+        return redirect()->back();
     }
 }
