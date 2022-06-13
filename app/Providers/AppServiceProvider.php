@@ -26,10 +26,12 @@ class AppServiceProvider extends ServiceProvider
                 'submenu'     => [
                     [
                         'text' => 'Admin',
+                        'icon' => 'fas fa-fw fa-user-secret',
                         'url'  => 'dashboard/user',
                     ],
                     [
                         'text' => 'Employee',
+                        'icon' => 'fas fa-fw fa-user-tie',
                         'url'  => 'dashboard/employee',
                     ],
                 ]

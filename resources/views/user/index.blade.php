@@ -18,8 +18,9 @@
                     </ul>
                 </div>
                 <div class="col-sm-6 float-sm-right text-right">
-                    <a href="#" data-url="{{ route('user.create') }}" data-ajax-popup="true" data-toggle="tooltip" data-title="Create New User"
-                        class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add User</a>
+                    <a href="#" data-url="{{ route('user.create') }}" data-ajax-popup="true" data-toggle="tooltip"
+                        data-title="Create New User" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add
+                        User</a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -69,14 +70,14 @@
                                             class="btn btn-sm btn-warning" data-ajax-popup="true" data-toggle="tooltip"
                                             data-title="Edit User" data-original-title="Edit User"><i
                                                 class="fas fa-user-edit"></i></a>
+                                        <a href="#" data-url="{{ route('show.password', $user->id) }}"
+                                            class="btn btn-sm btn-secondary" data-ajax-popup="true" data-toggle="tooltip"
+                                            data-title="Change Password" data-original-title="Change Password"><i
+                                                class="fas fa-key"></i></a>
                                         <a href="#" data-url="{{ route('delete', $user->id) }}"
                                             class="btn btn-sm btn-outline-light" data-ajax-popup="true"
                                             data-toggle="tooltip" data-title="Delete User"
                                             data-original-title="Delete User"><i class="fas fa-user-minus"></i></a>
-                                        <a href="#" data-url="{{ route('show.password', $user->id) }}"
-                                            class="btn btn-sm btn-outline-light" data-ajax-popup="true"
-                                            data-toggle="tooltip" data-title="Change Password"
-                                            data-original-title="Change Password"><i class="fas fa-user-minus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +97,7 @@
         </div>
         <!-- /.card -->
 
-        {{--  <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        {{-- <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -111,7 +112,7 @@
                     </div>
                 </div>
             </div>
-        </div>  --}}
+        </div> --}}
     </section>
     <!-- /.content -->
 @endsection

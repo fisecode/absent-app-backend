@@ -2,23 +2,28 @@
 
 @section('content')
     <!-- Content Header (Page header) -->
-
-    <div class="content-header">
+    <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">User</h1>
-                </div><!-- /.col -->
+                    <h4 class="m-b-3">Manage Employee</h4>
+                </div>
+            </div>
+            <div class="row mb-2">
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                        <li class="breadcrumb-item active">User</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
+                    <ul class="breadcrumb ">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Employee</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 float-sm-right text-right">
+                    <a href="#" data-url="{{ route('employee.create') }}" data-ajax-popup="true" data-toggle="tooltip"
+                        data-title="Create New Employee" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add
+                        Employee</a>
+                </div>
+            </div>
         </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -33,15 +38,7 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary mb-2">Add</a>
-
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="ion ion-clipboard mr-1"></i>
-                                User
-                            </h3>
-                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
 
@@ -97,9 +94,17 @@
                         name: 'email'
                     },
                     {
-                        data: 'doj',
-                        name: 'doj',
-                        type: 'datetime',
+                        data: function(row) {
+                            var date = new Date(row.doj);
+                            var options = {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                            };
+
+                            return date.toLocaleDateString('en-US');
+                        },
+                        name: 'doj'
                     },
                     {
                         data: 'division',
