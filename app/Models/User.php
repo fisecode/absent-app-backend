@@ -73,4 +73,14 @@ class User extends Authenticatable
     {
         return Carbon::parse($value)->timestamp;
     }
+
+    public function dateFormat($date)
+    {
+        return date("j M Y", strtotime($date));
+    }
+
+    public function timeFormat($time)
+    {
+        return date("G:i", strtotime($time));
+    }
 }

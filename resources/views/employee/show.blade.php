@@ -12,7 +12,8 @@
                 <div class="col-sm-6">
                     <ul class="breadcrumb ">
                         <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a style="color: #ffc107" href="{{ url()->previous() }}">Employee</a>
+                        <li class="breadcrumb-item"><a style="color: #ffc107"
+                                href="{{ route('employee.index') }}">Employee</a>
                         </li>
                         <li class="breadcrumb-item active">Manage Employee</li>
                     </ul>
@@ -45,21 +46,23 @@
                                             class="rounded-circle" width="200" height="200">
                                     @endif
 
-                                    <h5 class="my-3">{{ $employee->name }}</h5>
-                                    <p class="text-muted mb-1">Full Stack Developer</p>
-                                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                                    <div class="d-flex justify-content-center mb-2">
+                                    <h5 class="my-3 mb-0">{{ $employee->name }}</h5>
+                                    <p class="text-muted mb-0">#{{ $employee->employee_id }}</p>
+                                    <p class="text-muted mb-0">{{ $employee->division }}</p>
+                                    {{-- <div class="d-flex justify-content-center mb-2">
                                         <button type="button" class="btn btn-primary">Follow</button>
                                         <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="card mb-4">
                                 <div class="card-body">
+                                    <h5>Personal Detail</h5>
+                                    <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-12">
                                             <p class="mb-0">Full Name</p>
                                         </div>
                                         <div class="col-sm-9">
@@ -78,19 +81,29 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Phone</p>
+                                            <p class="mb-0">Gender</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">(097) 234-5678</p>
+                                            <p class="text-muted mb-0">{{ $employee->gender }}</p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Mobile</p>
+                                            <p class="mb-0">Phone</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">(098) 765-4321</p>
+                                            <p class="text-muted mb-0">{{ $employee->phone }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date Of Birthday</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->dob) }}
+                                            </p>
                                         </div>
                                     </div>
                                     <hr>
@@ -99,7 +112,27 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                            <p class="text-muted mb-0">{{ $employee->address }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date Of Joining</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->doj) }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Work From</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->work_from }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -108,46 +141,4 @@
                     </div>
                 </div>
             </section>
-            <section class="col-lg-12">
-                <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary mb-2">Back</a>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="ion ion-clipboard mr-1"></i>
-                            User
-                        </h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table class="table" id="datatable">
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <td>{{ $employee->name }}</td>
-                                </tr>
-                                <tr>
-                                    <th>E-Mail</th>
-                                    <td>{{ $employee->email }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Is Admin?</th>
-                                    <td>{{ $employee->roles ? 'Yes' : 'No' }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Photo</th>
-                                    <td><img width="350" src="{{ asset('/storage/assets/user/' . $employeePhoto) }}"
-                                            alt=""></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- /.card -->
-            </section>
-            <!-- /.Left col -->
-        </div>
-        <!-- /.row (main row) -->
-
-    </section>
-@endsection
+        @endsection

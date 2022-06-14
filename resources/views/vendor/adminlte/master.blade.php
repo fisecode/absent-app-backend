@@ -31,6 +31,8 @@
         @include('adminlte::plugins', ['type' => 'css'])
 
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+            rel="stylesheet">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @else
@@ -79,21 +81,21 @@
     {{-- Body Content --}}
     @yield('body')
     <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
     {{-- Base Scripts --}}
     @if (!config('adminlte.enabled_laravel_mix'))
@@ -107,6 +109,10 @@
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
         <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
         <script>
             $(function() {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -152,6 +158,13 @@
         <script>
             $(function() {
                 bsCustomFileInput.init();
+            });
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                $('#datetimepicker').datetimepicker({
+                    format: 'L'
+                });
             });
         </script>
     @else
