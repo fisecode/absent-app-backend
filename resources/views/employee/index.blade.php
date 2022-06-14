@@ -12,13 +12,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <ul class="breadcrumb ">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
                         <li class="breadcrumb-item active">Employee</li>
                     </ul>
                 </div>
                 <div class="col-sm-6 float-sm-right text-right">
                     <a href="#" data-url="{{ route('employee.create') }}" data-ajax-popup="true" data-toggle="tooltip"
-                        data-title="Create New Employee" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add
+                        data-title="Create New Employee" class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
                         Employee</a>
                 </div>
             </div>

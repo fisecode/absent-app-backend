@@ -102,8 +102,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('employee.edit', compact('user'));
+        $empId = Crypt::decrypt($id);
+        $employee = Employee::find($empId);
+        $user = User::where('id', $employee->user_id)->first();
+        return view('employee.edit', compact('employee', 'user'));
     }
 
     /**

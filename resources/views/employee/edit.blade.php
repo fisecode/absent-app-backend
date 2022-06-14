@@ -43,42 +43,29 @@
                         <!-- /.card-header -->
                         <div class="card-body">
 
-                            <form action="{{ route('user.update', $user->id) }}" method="post"
+                            <form action="{{ route('user.update', $employee->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf @method('PUT')
                                 <div class="form-group">
                                     <label for="">Name</label>
                                     <input type="text" name="name" class="form-control"
-                                        value="{{ old('name', $user->name) }}">
+                                        value="{{ old('name', $employee->name) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">e-Mail</label>
                                     <input type="email" name="email" class="form-control"
-                                        value="{{ old('email', $user->email) }}">
+                                        value="{{ old('email', $employee->email) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Password</label>
                                     <input type="password" name="password" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="" style="display: block">Is Admin</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" name="is_admin" type="radio" id="inlineRadio1"
-                                            value="1" {{ old('name', $user->is_admin) == 1 ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="inlineRadio1">Yes</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" name="is_admin" type="radio" id="inlineRadio2"
-                                            value="0" {{ old('name', $user->is_admin) == 0 ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="inlineRadio2">No</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="">Photo</label>
                                     <input type="file" name="image" class="form-control-file">
-                                    @if ($user->profile_photo_path)
-                                        <img src="{{ asset('/storage/assets/profile/' . $user->profile_photo_path) }}"
-                                            alt="" height="100">
+                                    @if ($user->photo)
+                                        <img src="{{ asset('/storage/assets/user/' . $user->photo) }}" alt=""
+                                            height="100">
                                     @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
