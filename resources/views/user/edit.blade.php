@@ -1,11 +1,11 @@
 <form action="{{ route('user.update', $user->id) }}" method="post" enctype="multipart/form-data">
     @csrf @method('PUT')
     <div class="form-group">
-        <div class="mb-2" style="width:100px">
+        <div class="mb-2" style="width:30%">
 
             @if ($user->photo)
-                <img src="{{ asset('/storage/assets/user/' . $user->photo) }}" alt="user-avatar"
-                    class="rounded-circle img-fluid">
+                <img src="{{ asset('/storage/assets/user/' . $user->photo) }}" alt="user-avatar" class="rounded-circle"
+                    style="width: 100%; aspect-ratio: 1/1;">
             @endif
         </div>
         <label for="">Photo</label>

@@ -100,26 +100,6 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <div class="form-group">
-                                                    <label>Date:</label>
-                                                    <div class="input-group date" id="reservationdate"
-                                                        data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input"
-                                                            data-target="#reservationdate" />
-                                                        <div class="input-group-append" data-target="#reservationdate"
-                                                            data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @push('js')
-                                                    <script>
-                                                        $('#reservationdate').datetimepicker({
-                                                            format: 'L'
-                                                        });
-                                                    </script>
-                                                @endpush
                                                 <div class="col-md-2">
                                                     Appointment Time
                                                 </div>

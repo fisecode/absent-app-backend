@@ -50,13 +50,17 @@
                                 <div class="card-body pt-0 mt-2">
                                     <div class="row">
                                         <div class="col-3 text-center">
-                                            @if ($user->photo)
-                                                <img src="{{ asset('/storage/assets/user/' . $user->photo) }}"
-                                                    alt="user-avatar" class="img-circle img-fluid">
-                                            @else
-                                                <img src="{{ asset('/storage/assets/user/default-profile.png') }}"
-                                                    alt="user-avatar" class="img-circle img-fluid">
-                                            @endif
+                                            <div class="avatar">
+                                                @if ($user->photo)
+                                                    <img src="{{ asset('/storage/assets/user/' . $user->photo) }}"
+                                                        alt="user-avatar" class="rounded-circle"
+                                                        style="width: 100%; aspect-ratio: 1/1;">
+                                                @else
+                                                    <img src="{{ asset('/storage/assets/user/profile-picture.png') }}"
+                                                        alt="user-avatar" class="rounded-circle"
+                                                        style="width: 100%; aspect-ratio: 1/1;">
+                                                @endif
+                                            </div>
                                         </div>
                                         <div class="col-9">
                                             <h5 class="lead"><b>{{ $user->name }}</b></h5>
