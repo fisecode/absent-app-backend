@@ -98,17 +98,45 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="col-md-2">
-                                                    Appointment Time
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control datetimepicker"
-                                                        name="Appointment_time">
+                                        <div class="form-group">
+                                            <label>Date:</label>
+                                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input"
+                                                    data-target="#reservationdate" />
+                                                <div class="input-group-append" data-target="#reservationdate"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Date and time -->
+                                        <div class="form-group">
+                                            <label>Date and time:</label>
+                                            <div class="input-group date" id="reservationdatetime"
+                                                data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input"
+                                                    data-target="#reservationdatetime" />
+                                                <div class="input-group-append" data-target="#reservationdatetime"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Date range -->
+                                        <div class="form-group">
+                                            <label>Date range:</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control float-right" id="reservation">
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <!-- /.form group -->
                                         <div class="col-sm-3">
                                             <p class="mb-0">Date Of Birthday</p>
                                         </div>

@@ -39,7 +39,7 @@
                             <div class="card-body text-center">
                                 @if ($employeePhoto)
                                     <img src="{{ asset('/storage/assets/user/' . $employeePhoto) }}" alt="avatar"
-                                        class="rounded-circle" style="width: 100%; aspect-ratio: 1/1;">
+                                        class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
                                 @else
                                     <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
                                         class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
