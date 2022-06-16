@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
                 'gender' => $gender,
                 'phone' => $faker->phoneNumber,
                 'address' => $faker->address,
-                'employee_id' => $faker->unique()->numberBetween(1, 50),
+                'employee_id' => $faker->unique()->numberBetween(2, 51),
                 'doj' => $dateDoj,
                 'division' => $division,
                 'work_from' => $workFrom,
