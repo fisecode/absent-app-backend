@@ -37,5 +37,5 @@ Route::prefix('dashboard')
         Route::get('/dashboard/user/{id}/password', [UserController::class, 'showPassword'])->name('show.password');
         Route::put('/dashboard/user/{id}/password/update', [UserController::class, 'updatePassword'])->name('update.password');
         Route::resource('employee', EmployeeController::class);
-        Route::get('/dashboard/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('deleteEmployee');
+        Route::get('/dashboard/employee/delete/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
     });

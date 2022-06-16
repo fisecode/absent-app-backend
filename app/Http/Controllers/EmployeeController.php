@@ -127,9 +127,21 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
+        $employee = Employee::findOrFail($id);
+        $user = User::where('id', $employee->user_id)->first();
+        $photo = $user->photo;
+
+        if ($photo) {
+            $this->deleteImage($photo, 'user');
+        }
+
+        $employee->delete();
+        $user->delete();
+        session()->flash('success', 'User successfully deleted.');
+        return redirect()->back();
     }
 
-    public function deleteEmployee($id)
+    public function delete($id)
     {
         $employee = Employee::findOrFail($id);
         return view('employee.delete', compact('employee'));
