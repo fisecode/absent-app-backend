@@ -17,8 +17,8 @@
                     </ul>
                 </div>
                 <div class="col-sm-6 float-sm-right text-right">
-                    <a href="#" data-url="{{ route('employee.create') }}" data-ajax-popup="true" data-toggle="tooltip"
-                        data-title="Create New Employee" class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
+                    <a href="{{ route('employee.create') }}" data-toggle="tooltip" data-title="Create New Employee"
+                        class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
                         Employee</a>
                 </div>
             </div>
@@ -32,9 +32,14 @@
                 <!-- Left col -->
                 <section class="col-lg-12">
 
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
                         </div>
                     @endif
 

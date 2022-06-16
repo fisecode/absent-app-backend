@@ -83,4 +83,10 @@ class User extends Authenticatable
     {
         return date("G:i", strtotime($time));
     }
+
+    public function employeeIdFormat($number)
+    {
+
+        return "#LMS00" . sprintf("%05d", $number);
+    }
 }

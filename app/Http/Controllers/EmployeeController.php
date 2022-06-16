@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -28,7 +29,7 @@ class EmployeeController extends Controller
             return DataTables::of($data)
                 ->addColumn('employee_id', function ($data) {
                     return view('layouts._employee', [
-                        'employee_id' => $data->employee_id,
+                        'employee_id' => \Auth::user()->employeeIdFormat($data->employee_id),
                         'show_url' => route('employee.show', Crypt::encrypt($data->id))
                     ]);
                 })
@@ -55,7 +56,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        $employeeId = \Auth::user()->employeeIdFormat($this->employeeNumber());
+
+        return view('employee.create', compact('employeeId'));
     }
 
     /**
@@ -66,17 +69,45 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = \Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'dob' => 'required',
+                'gender' => 'required',
+                'phone' => 'required|numeric',
+                'address' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required',
+            ]
+        );
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
+
+            return redirect()->back()->with('error', $messages->first());
+        }
         $photo = $request->file('image');
 
         if ($photo) {
-            $request['photo'] = $this->uploadImage($photo, $request->name, 'profile');
+            $request['photo'] = $this->uploadImage($photo, $request->name, 'user');
         }
 
         $request['password'] = Hash::make($request->password);
 
-        User::create($request->all());
+        $user = User::create([
+            'name'     => $request['name'],
+            'email'    => $request['email'],
+            'password' => $request['password'],
+            'roles'    => 'employee',
+            'photo'    => $request['photo']
+        ]);
 
-        return redirect()->route('employee.index');
+        $request['user_id'] = $user->id;
+        $request['employee_id'] = $this->employeeNumber();
+
+        Employee::create($request->all());
+
+        return redirect()->route('employee.index')->with('success', 'Employee  successfully created.');
     }
 
     /**
@@ -90,7 +121,8 @@ class EmployeeController extends Controller
         $empId = Crypt::decrypt($id);
         $employee = Employee::find($empId);
         $employeePhoto = User::where('id', $employee->user_id)->get()->pluck('photo')->first();
-        return view('employee.show', compact('employee', 'employeePhoto'));
+        $employeeId = \Auth::user()->employeeIdFormat($employee->employee_id);
+        return view('employee.show', compact('employee', 'employeePhoto', 'employeeId'));
     }
 
     /**
@@ -104,7 +136,8 @@ class EmployeeController extends Controller
         $empId = Crypt::decrypt($id);
         $employee = Employee::find($empId);
         $user = User::where('id', $employee->user_id)->first();
-        return view('employee.edit', compact('employee', 'user'));
+        $employeeId = \Auth::user()->employeeIdFormat($employee->employee_id);
+        return view('employee.edit', compact('employee', 'user', 'employeeId'));
     }
 
     /**
@@ -116,9 +149,34 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'dob' => 'required',
+                'gender' => 'required',
+                'phone' => 'required|numeric',
+                'address' => 'required',
+            ]
+        );
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
 
+            session()->flash('error', $messages->first());
+            return redirect()->back();
+        }
+        $employee = Employee::findOrFail($id);
+        $user = User::where('id', $employee->user_id)->first();
+        $photo = $request->file('image');
+
+        if ($photo) {
+            $request['photo'] = $this->uploadImage($photo, $request->name, 'user', true, $user->photo);
+        }
+
+        $employee->update($request->all());
+        $user->update($request->all());
+        return redirect()->route('employee.show', \Illuminate\Support\Facades\Crypt::encrypt($employee->id))->with('success', 'Employee successfully updated.');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -145,5 +203,15 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         return view('employee.delete', compact('employee'));
+    }
+
+    function employeeNumber()
+    {
+        $latest = Employee::latest()->first();
+        if (!$latest) {
+            return 1;
+        }
+
+        return $latest->employee_id + 1;
     }
 }

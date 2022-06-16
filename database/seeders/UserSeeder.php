@@ -42,14 +42,15 @@ class UserSeeder extends Seeder
             'gender' => 'Male',
             'phone' => '0897777777',
             'address' => 'Rengas',
-            'employee_id' => 'LMS00001',
+            'employee_id' => '1',
             'doj' => '2018-12-24',
-            'division' => 'Motion Grapher',
+            'division' => 'Motion Graphic',
             'work_from' => 'Office',
         ]);
 
         for ($i = 1; $i <= 50; $i++) {
             $gender = $faker->randomElement(['Male', 'Female']);
+            $division = $faker->randomElement(['Comic', 'Painting', 'Compositing', 'Motion Graphic']);
             $workFrom = $faker->randomElement(['Office', 'Home']);
             $dtDob = $faker->dateTimeBetween('-30 years', '-20 years');
             $dateDob = $dtDob->format('Y-m-d');
@@ -71,11 +72,21 @@ class UserSeeder extends Seeder
                 'gender' => $gender,
                 'phone' => $faker->phoneNumber,
                 'address' => $faker->address,
-                'employee_id' => 'LMS' . $faker->randomNumber(5, true),
+                'employee_id' => $faker->unique()->numberBetween(1, 50),
                 'doj' => $dateDoj,
-                'division' => $faker->jobTitle,
+                'division' => $division,
                 'work_from' => $workFrom,
             ]);
         }
+    }
+
+    public function employeeNumber()
+    {
+        $latest = Employee::latest()->first();
+        if (!$latest) {
+            return 1;
+        }
+
+        return $latest->employee_id + 1;
     }
 }

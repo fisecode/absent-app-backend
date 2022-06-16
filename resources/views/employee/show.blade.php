@@ -29,115 +29,134 @@
 
     <section class="content">
 
-        <!-- Main row -->
-        <div class="row">
-            <!-- Left col -->
-            <section class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-body text-center">
-                                @if ($employeePhoto)
-                                    <img src="{{ asset('/storage/assets/user/' . $employeePhoto) }}" alt="avatar"
-                                        class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
-                                @else
-                                    <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
-                                        class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
-                                @endif
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+        <div class="container-fluid pr-3 pl-3">
 
-                                <h5 class="my-3 mb-0">{{ $employee->name }}</h5>
-                                <p class="text-muted mb-0">#{{ $employee->employee_id }}</p>
-                                <p class="text-muted mb-0">{{ $employee->division }}</p>
-                                {{-- <div class="d-flex justify-content-center mb-2">
-                                        <button type="button" class="btn btn-primary">Follow</button>
-                                        <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                                    </div> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5>Personal Detail</h5>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Full Name</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->name }}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Email</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->email }}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Gender</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->gender }}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Phone</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->phone }}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Date Of Birthday</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->dob) }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Address</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->address }}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Date Of Joining</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->doj) }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Work From</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{ $employee->work_from }}
-                                        </p>
-                                    </div>
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    @if ($employeePhoto)
+                                        <img src="{{ asset('/storage/assets/user/' . $employeePhoto) }}" alt="avatar"
+                                            class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
+                                    @else
+                                        <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
+                                            class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
+                                    @endif
+
+                                    <h5 class="my-3 mb-0">{{ $employee->name }}</h5>
+                                    <p class="text-muted mb-0">{{ $employeeId }}</p>
+                                    <p class="text-muted mb-0">{{ $employee->division }}</p>
+                                    {{-- <div class="d-flex justify-content-center mb-2">
+                                    <button type="button" class="btn btn-primary">Follow</button>
+                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                                </div> --}}
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Personal Detail</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Full Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->name }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->email }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Gender</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->gender }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->phone }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date Of Birthday</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->dob) }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Address</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->address }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Company Detail</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date of Joining</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->doj) }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Work From</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $employee->work_from }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+            </div>
         </div>
     </section>
 @endsection
