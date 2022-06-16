@@ -37,8 +37,7 @@ class EmployeeController extends Controller
                     return view('layouts._action', [
                         'model' => $data,
                         'edit_url' => route('employee.edit', Crypt::encrypt($data->id)),
-                        'delete_url' => route('user.destroy', $data->id),
-                        'employee_id' => $data->employee_id
+                        'delete_url' => route('deleteEmployee', $data->id),
                     ]);
                 })
                 ->rawColumns(['action'])
@@ -128,5 +127,11 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    public function deleteEmployee($id)
+    {
+        $employee = Employee::findOrFail($id);
+        return view('employee.delete', compact('employee'));
     }
 }

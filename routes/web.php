@@ -32,9 +32,10 @@ Route::prefix('dashboard')
     ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('user', UserController::class);
         Route::get('/dashboard/user/delete/{id}', [UserController::class, 'delete'])->name('delete');
         Route::get('/dashboard/user/{id}/password', [UserController::class, 'showPassword'])->name('show.password');
         Route::put('/dashboard/user/{id}/password/update', [UserController::class, 'updatePassword'])->name('update.password');
-        Route::resource('user', UserController::class);
         Route::resource('employee', EmployeeController::class);
+        Route::get('/dashboard/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('deleteEmployee');
     });
