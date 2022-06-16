@@ -24,6 +24,10 @@ Route::get('/', function () {
 });
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/forgot-password', function () {
+    return view('adminlte::auth.passwords.reset');
+})->name('password.request');
+
 Route::prefix('dashboard')
     ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {

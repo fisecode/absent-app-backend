@@ -19,6 +19,6 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-        <input type="submit" value="Create" class="btn btn-primary">
+        <input type="submit" value="Create" class="btn btn-warning">
     </div>
 </form>

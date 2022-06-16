@@ -18,11 +18,6 @@
                         <li class="breadcrumb-item active">Manage Employee</li>
                     </ul>
                 </div>
-                <div class="col-sm-6 float-sm-right text-right">
-                    <a href="{{ route('employee.edit', \Illuminate\Support\Facades\Crypt::encrypt($employee->id)) }}"
-                        data-toggle="tooltip" data-title="Edit Employee" class="btn btn-sm btn-warning"><i
-                            class="fas fa-user-edit"></i></a>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -33,150 +28,122 @@
         <div class="row">
             <!-- Left col -->
             <section class="col-lg-12">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card mb-4">
-                                <div class="card-body text-center">
-                                    @if ($user->photo)
-                                        <img src="{{ asset('/storage/assets/user/' . $user->photo) }}" alt="avatar"
-                                            class="rounded-circle" width="200" height="200">
-                                    @else
-                                        <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
-                                            class="rounded-circle" width="200" height="200">
-                                    @endif
-
-                                    <h5 class="my-3 mb-0">{{ $employee->name }}</h5>
-                                    <p class="text-muted mb-0">#{{ $employee->employee_id }}</p>
-                                    <p class="text-muted mb-0">{{ $employee->division }}</p>
-                                    {{-- <div class="d-flex justify-content-center mb-2">
-                                        <button type="button" class="btn btn-primary">Follow</button>
-                                        <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                                    </div> --}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <h5>Personal Detail</h5>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="{{ old('name', $employee->name) }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="text" class="form-control" name="email"
-                                                    value="{{ old('email', $employee->email) }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="name">Gender</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="{{ old('name', $employee->name) }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" name="phone"
-                                                    value="{{ old('phone', $employee->phone) }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label>Date:</label>
-                                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input"
-                                                    data-target="#reservationdate" />
-                                                <div class="input-group-append" data-target="#reservationdate"
-                                                    data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Date and time -->
-                                        <div class="form-group">
-                                            <label>Date and time:</label>
-                                            <div class="input-group date" id="reservationdatetime"
-                                                data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input"
-                                                    data-target="#reservationdatetime" />
-                                                <div class="input-group-append" data-target="#reservationdatetime"
-                                                    data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Date range -->
-                                        <div class="form-group">
-                                            <label>Date range:</label>
-
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="far fa-calendar-alt"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="text" class="form-control float-right" id="reservation">
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
-                                        <!-- /.form group -->
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date Of Birthday</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->dob) }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Address</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->address }}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date Of Joining</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->doj) }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Work From</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->work_from }}
-                                            </p>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                @if ($user->photo)
+                                    <img src="{{ asset('/storage/assets/user/' . $user->photo) }}" alt="avatar"
+                                        class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
+                                @else
+                                    <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
+                                        class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
+                                @endif
+                                <div class="form-group mt-3">
+                                    <label for="photo">Change Photo</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="image" accept="image/*"
+                                                required>
+                                            <label class="custom-file-label" for="photo">Choose file</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5>Personal Detail</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" name="name"
+                                            value="{{ old('name', $employee->name) }}" required>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" name="phone"
+                                            value="{{ old('phone', $employee->phone) }}" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="text" id="datepickerdob" class="form-control datetimepicker-input"
+                                            data-toggle="datetimepicker" data-target="#datepickerdob"
+                                            value="{{ old('dob', $employee->dob) }}" name="dob" required>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="gender">Gender</label>
+                                        <div class="d-flex">
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input custom-control-input-warning"
+                                                    type="radio" id="g_male" name="gender" value="Male"
+                                                    {{ $employee->gender == 'Male' ? 'checked' : '' }}>
+                                                <label for="g_male" class="custom-control-label">Male</label>
+                                            </div>
+                                            <div class="custom-control ml-3 custom-radio">
+                                                <input class="custom-control-input custom-control-input-warning"
+                                                    type="radio" id="g_female" name="gender" value="Female"
+                                                    {{ $employee->gender == 'Female' ? 'checked' : '' }}>
+                                                <label for="g_female" class="custom-control-label">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label for="address">Address</label>
+                                        <textarea class="form-control" rows="3" name="address">{{ old('address', $employee->address) }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5>Company Detail</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="employe_id">Employee ID</label>
+                                        <input type="text" class="form-control" name="employe_id"
+                                            value="{{ old('employe_id', $employee->employee_id) }}" disabled>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="doj">Date of Joining</label>
+                                        <input type="text" id="datepickerdoj" class="form-control datetimepicker-input"
+                                            data-toggle="datetimepicker" data-target="#datepickerdoj"
+                                            value="{{ old('doj', $employee->doj) }}" name="doj" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="division">Division</label>
+                                        <select class="form-control select2 select2-warning"
+                                            data-dropdown-css-class="select2-warning" style="width: 100%;">
+                                            <option selected="selected">Alabama</option>
+                                            <option>Comic</option>
+                                            <option>Compositing</option>
+                                            <option>Motion Graphic</option>
+                                            <option>Painting</option>
+                                        </select>
+                                        <input type="text" class="form-control" name="division"
+                                            value="{{ old('division', $employee->division) }}" required>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="work_from">Work From</label>
+                                        <input type="text" class="form-control" name="work_from"
+                                            value="{{ old('work_from', $employee->work_from) }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        @endsection
+        </div>
+    </section>
+@endsection

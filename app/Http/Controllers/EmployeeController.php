@@ -36,7 +36,7 @@ class EmployeeController extends Controller
                 ->addColumn('action', function ($data) {
                     return view('layouts._action', [
                         'model' => $data,
-                        'edit_url' => route('employee.edit', $data->id),
+                        'edit_url' => route('employee.edit', Crypt::encrypt($data->id)),
                         'delete_url' => route('user.destroy', $data->id),
                         'employee_id' => $data->employee_id
                     ]);
