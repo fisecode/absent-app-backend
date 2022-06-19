@@ -23,7 +23,6 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            // $data = User::where('roles', 'ADMIN');
             $data = Employee::all();
 
             return DataTables::of($data)
@@ -47,7 +46,6 @@ class EmployeeController extends Controller
                 ->make(true);
         }
 
-        // $users = User::paginate(5);
         return view('employee.index');
     }
 

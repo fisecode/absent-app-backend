@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AbsentSpot;
+use App\Models\Absent;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
-class AbsentSpotController extends Controller
+class AbsentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,28 +16,22 @@ class AbsentSpotController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
-            $data = AbsentSpot::with('employee')->get();
+            $data = Absent::with('employee')->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    return view('layouts._absentspot', [
-                        'model'      => $data,
-                        'action_url' => route('absentspot.action', $data->id),
-                        'delete_url' => route('absentspot.delete', $data->id),
-                    ]);
-                })
-                ->addColumn('status', function ($data) {
-                    return view('layouts._status', [
-                        'status' => $data->status
+                    return view('layouts._absent', [
+                        'show_url' => route('absent.show', $data->id),
                     ]);
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
-        return view('absentspot.index');
+        return view('absent.index');
     }
 
     /**
@@ -102,35 +97,6 @@ class AbsentSpotController extends Controller
      */
     public function destroy($id)
     {
-        $absentSpot = AbsentSpot::findOrFail($id);
-        $absentSpot->employee->work_from = 'Office';
-        $absentSpot->employee->save();
-        $absentSpot->delete();
-        return redirect()->route('absentspot.index')->with('success', 'Absent spot successfully deleted.');
-    }
-
-    public function delete($id)
-    {
-        $absentSpot = AbsentSpot::findOrFail($id);
-        return view('absentspot.delete', compact('absentSpot'));
-    }
-
-    public function action($id)
-    {
-        $absentSpot = AbsentSpot::findOrFail($id);
-        return view('absentspot.action', compact('absentSpot'));
-    }
-
-    public function approval(Request $request)
-    {
-        $absentSpot = AbsentSpot::findOrFail($request->absentspot_id);
-        $absentSpot->status = $request->status;
-        if ($absentSpot->status == 'Approved') {
-            $absentSpot->status = 'Approved';
-            $absentSpot->employee->work_from = $absentSpot->name_spot;
-        }
-        $absentSpot->save();
-        $absentSpot->employee->save();
-        return redirect()->route('absentspot.index')->with('success', 'Absent Spot status successfully updated.');
+        //
     }
 }

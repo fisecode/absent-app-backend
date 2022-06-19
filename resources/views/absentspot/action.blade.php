@@ -30,7 +30,7 @@
         </table>
     </div>
     <div class="modal-footer pr-0">
-        <input type="submit" class="btn btn-success" value="Approval" name="status">
+        <input type="submit" class="btn btn-success" value="Approved" name="status">
         <input type="submit" class="btn btn-danger" value="Reject" name="status">
     </div>
 </form>

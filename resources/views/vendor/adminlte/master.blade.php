@@ -71,7 +71,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicons/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192"
+            href="{{ asset('favicons/android-icon-192x192.png') }}">
         <link rel="manifest" crossorigin="use-credentials" href="{{ asset('favicons/manifest.json') }}">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
@@ -123,11 +124,11 @@
         </script>
         <script>
             //Date picker
-            $('#datepickerdob').datetimepicker({
+            $('#datepicker1').datetimepicker({
                 format: 'YYYY-MM-DD'
             });
             //Date picker
-            $('#datepickerdoj').datetimepicker({
+            $('#datepicker2').datetimepicker({
                 format: 'YYYY-MM-DD'
             });
             //Initialize Select2 Elements
@@ -159,6 +160,13 @@
                             if (data.length) {
                                 $('#commonModal .modal-body').html(data);
                                 $("#commonModal").modal('show');
+                                $('#datepicker1').datetimepicker({
+                                    format: 'YYYY-MM-DD'
+                                });
+                                $('#datepicker2').datetimepicker({
+                                    format: 'YYYY-MM-DD'
+                                });
+                                $('.select2').select2()
                                 // common_bind();
                                 // common_bind_select();
                             } else {

@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\AbsentSpotController;
+use App\Models\Leave;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\AbsentController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\AbsentSpotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +47,9 @@ Route::prefix('dashboard')
         Route::post('absentspot/{absentspot}/approval', [AbsentSpotController::class, 'approval'])->name('absentspot.approval');
         Route::resource('leavetype', LeaveTypeController::class);
         Route::get('leavetype/delete/{id}', [LeaveTypeController::class, 'delete'])->name('leavetype.delete');
+        Route::resource('leave', LeaveController::class);
+        Route::get('leave/delete/{id}', [LeaveController::class, 'delete'])->name('leave.delete');
+        Route::get('leave/{id}/action', [LeaveController::class, 'action'])->name('leave.action');
+        Route::post('leave/{id}/approval', [LeaveController::class, 'approval'])->name('leave.approval');
+        Route::resource('absent', AbsentController::class);
     });

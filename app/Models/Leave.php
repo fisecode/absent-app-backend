@@ -22,7 +22,7 @@ class Leave extends Model
 
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'employee_id', 'id');
+        return $this->hasOne(Employee::class, 'id', 'employee_id');
     }
 
     public function leaveType()
