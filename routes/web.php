@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\AbsentSpotController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
-use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\LeaveTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +42,6 @@ Route::prefix('dashboard')
         Route::get('absentspot/delete/{absentspot}', [AbsentSpotController::class, 'delete'])->name('absentspot.delete');
         Route::get('absentspot/{absentspot}/action', [AbsentSpotController::class, 'action'])->name('absentspot.action');
         Route::post('absentspot/{absentspot}/approval', [AbsentSpotController::class, 'approval'])->name('absentspot.approval');
+        Route::resource('leavetype', LeaveTypeController::class);
+        Route::get('leavetype/delete/{id}', [LeaveTypeController::class, 'delete'])->name('leavetype.delete');
     });

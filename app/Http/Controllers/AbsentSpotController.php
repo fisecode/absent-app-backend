@@ -108,14 +108,15 @@ class AbsentSpotController extends Controller
     public function destroy($id)
     {
         $absentSpot = AbsentSpot::findOrFail($id);
+        $absentSpot->employee->work_from = 'Office';
+        $absentSpot->employee->save();
         $absentSpot->delete();
-        session()->flash('success', 'Absent spot successfully deleted.');
-        return redirect()->back();
+        return redirect()->route('absentspot.index')->with('success', 'Absent spot successfully deleted.');
     }
 
     public function delete($id)
     {
-        $absentSpot = AbsentSpot::findOrFail($id)->with('employee')->first();
+        $absentSpot = AbsentSpot::findOrFail($id);
         return view('absentspot.delete', compact('absentSpot'));
     }
 
@@ -127,8 +128,7 @@ class AbsentSpotController extends Controller
 
     public function approval(Request $request)
     {
-        $absentSpot = AbsentSpot::find($request->absentspot_id)->with('employee')->first();
-
+        $absentSpot = AbsentSpot::findOrFail($request->absentspot_id);
         $absentSpot->status = $request->status;
         if ($absentSpot->status == 'Approval') {
             $absentSpot->status = 'Approve';

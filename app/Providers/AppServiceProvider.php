@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\AbsentSpot;
+use App\Models\Leave;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
@@ -19,9 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
-            // Add some items to the menu...
-            $usersCount = User::count();
             $absentPendingCount = AbsentSpot::where('status', 'Pending')->count();
+            $leavePendingCount = Leave::where('status', 'Pending')->count();
             $event->menu->add(
                 [
                     'text'    => 'Staff',
@@ -69,7 +69,6 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text'        => 'Manage Absent',
                         'icon'        => 'fas fa-fw fa-user-clock',
-
                         'submenu'     => [
                             [
                                 'text' => 'Absent',
@@ -80,6 +79,49 @@ class AppServiceProvider extends ServiceProvider
                                 'text' => 'Absent Spot',
                                 'icon' => 'fas fa-fw fa-map-marker-alt',
                                 'url'  => 'dashboard/absentspot',
+                            ],
+                        ]
+                    ]
+                );
+            }
+            if ($leavePendingCount) {
+                $event->menu->add(
+                    [
+                        'text'        => 'Manage Leave',
+                        'icon'        => 'fas fa-fw fa-calendar-alt',
+                        'label'       => $leavePendingCount,
+                        'label_color' => 'danger',
+                        'submenu'     => [
+                            [
+                                'text'        => 'Leave',
+                                'icon'        => 'fas fa-fw fa-calendar-check',
+                                'url'         => 'dashboard/leave',
+                                'label'       => $leavePendingCount,
+                                'label_color' => 'danger',
+                            ],
+                            [
+                                'text' => 'LeaveType',
+                                'icon' => 'fas fa-fw fa-calendar-plus',
+                                'url'  => 'dashboard/leavetype',
+                            ],
+                        ]
+                    ]
+                );
+            } else {
+                $event->menu->add(
+                    [
+                        'text'        => 'Manage Leave',
+                        'icon'        => 'fas fa-fw fa-calendar-alt',
+                        'submenu'     => [
+                            [
+                                'text' => 'Leave',
+                                'icon' => 'fas fa-fw fa-calendar-check',
+                                'url'  => 'dashboard/leave',
+                            ],
+                            [
+                                'text' => 'LeaveType',
+                                'icon' => 'fas fa-fw fa-calendar-plus',
+                                'url'  => 'dashboard/leavetype',
                             ],
                         ]
                     ]

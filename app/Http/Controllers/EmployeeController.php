@@ -100,7 +100,7 @@ class EmployeeController extends Controller
             'name'     => $request['name'],
             'email'    => $request['email'],
             'password' => $request['password'],
-            'roles'    => 'employee',
+            'roles'    => 'Employee',
             'photo'    => $request['photo']
         ]);
 
@@ -195,6 +195,7 @@ class EmployeeController extends Controller
             $this->deleteImage($photo, 'user');
         }
 
+        $employee->absentSpot->delete();
         $employee->delete();
         $user->delete();
         session()->flash('success', 'User successfully deleted.');

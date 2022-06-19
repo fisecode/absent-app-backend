@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Employee;
 use Faker\Factory as Faker;
+use App\Traits\ImageStorage;
+use Mmo\Faker\PicsumProvider;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,19 +20,25 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
-
+        $faker->addProvider(new \Mmo\Faker\PicsumProvider($faker));
+        $filepath = storage_path('app\public\assets\user');
+        $photo = $faker->picsum($filepath, 400, 400, false);
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@mail.com',
+            'name'     => 'Admin',
+            'email'    => 'admin@mail.com',
             'password' => Hash::make(12345678),
-            'roles' => 'Admin',
+            'roles'    => 'Admin',
+            'photo'    => $photo
         ]);
 
+        $photo = $faker->picsum($filepath, 400, 400, false);
+
         $user = User::create([
-            'name' => 'Akhmat Fikri Septiawan',
-            'email' => 'fikri@mail.com',
+            'name'     => 'Akhmat Fikri Septiawan',
+            'email'    => 'fikri@mail.com',
             'password' => Hash::make(12345678),
-            'roles' => 'employee',
+            'roles'    => 'Employee',
+            'photo'    => $photo
         ]);
 
         Employee::create([
@@ -48,6 +56,7 @@ class UserSeeder extends Seeder
             'work_from' => 'Office',
         ]);
 
+
         for ($i = 1; $i <= 50; $i++) {
             $gender = $faker->randomElement(['Male', 'Female']);
             $division = $faker->randomElement(['Comic', 'Painting', 'Compositing', 'Motion Graphic']);
@@ -56,11 +65,13 @@ class UserSeeder extends Seeder
             $dateDob = $dtDob->format('Y-m-d');
             $dtDoj = $faker->dateTimeBetween('-5 years', 'now');
             $dateDoj = $dtDoj->format('Y-m-d');
+            $photo = $faker->picsum($filepath, 400, 400, false);
             $user = User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
+                'name'     => $faker->name,
+                'email'    => $faker->email,
                 'password' => Hash::make(12345678),
-                'roles' => 'employee',
+                'roles'    => 'Employee',
+                'photo'    => $photo
             ]);
 
             Employee::create([

@@ -13,8 +13,13 @@
                 <div class="col-sm-6">
                     <ul class="breadcrumb ">
                         <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
-                        <li class="breadcrumb-item active">Absent Spot</li>
+                        <li class="breadcrumb-item active">Leave Type</li>
                     </ul>
+                </div>
+                <div class="col-sm-6 float-sm-right text-right">
+                    <a href="#" data-url="{{ route('leavetype.create') }}" data-ajax-popup="true"
+                        data-toggle="tooltip" data-title="Create New Leave Type" data-original-title="Create"
+                        class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> </a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -45,13 +50,8 @@
                             <table class="table" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>EMPLOYEE</th>
-                                        <th>SPOT NAME</th>
-                                        <th>LATITUDE</th>
-                                        <th>LONGITUDE</th>
-                                        <th>ADDRESS</th>
-                                        <th>STATUS</th>
+                                        <th>LEAVE TYPE</th>
+                                        <th>DAYS / YEARS</th>
                                         <th>ACTION</th>
                                     </tr>
                                 </thead>
@@ -78,37 +78,17 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: "absentspot",
+                ajax: "leavetype",
                 "fnDrawCallback": function() {
                     $('[data-toggle="tooltip"]').tooltip();
                 },
                 columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'id',
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'employee.name',
-                        name: 'employee'
-                    },
-                    {
-                        data: 'name_spot',
-                        name: 'name_spot'
-                    },
-                    {
-                        data: 'latitude',
-                        name: 'latitude'
-                    },
-                    {
-                        data: 'longitude',
-                        name: 'longitude'
-                    },
-                    {
-                        data: 'address',
-                        name: 'address'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
+                        data: 'days',
+                        name: 'days'
                     },
                     {
                         data: 'action',

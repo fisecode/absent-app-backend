@@ -48,7 +48,7 @@ class UserController extends Controller
             if (!Hash::check($request->password, $user->password, [])) {
                 throw new InvalidArgumentException('Invalid Credentials');
             }
-            if ($user->roles != 'employee') {
+            if ($user->roles != 'Employee') {
                 throw new InvalidArgumentException('Invalid Credentials');
             }
 

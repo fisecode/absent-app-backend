@@ -9,7 +9,7 @@
 @endif
 
 @if ($edit_url)
-    <a href="#" data-url="{{ $edit_url }}" class="btn btn-sm btn-outline-light" data-ajax-popup="true"
+    <a href="#" data-url="{{ $edit_url }}" class="btn btn-sm btn-warning" data-ajax-popup="true"
         data-toggle="tooltip" data-title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a>
 @endif
 @if ($delete_url)
