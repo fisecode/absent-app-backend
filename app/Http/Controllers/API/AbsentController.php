@@ -135,8 +135,8 @@ class AbsentController extends Controller
         ]);
 
         $absentSpot      = new AbsentSpot();
-        $getEmployee     = Employee::where('user_id', Auth::user()->id)->get();
-        $absentSpotExist = AbsentSpot::where('employee_id', $getEmployee->id)->get();
+        $getEmployee     = Employee::where('user_id', Auth::user()->id)->first();
+        $absentSpotExist = AbsentSpot::where('employee_id', $getEmployee->id)->first();
 
         if (!$absentSpotExist) {
             $dataAbsentSpot = ([
@@ -178,7 +178,7 @@ class AbsentController extends Controller
     {
         $getEmployee   = Employee::where('user_id', Auth::user()->id)->first();
         $getAbsentSpot = Employee::with('absentSpot')->where('id', $getEmployee->id)->get();
-        return         ResponseFormatter::success(
+        return ResponseFormatter::success(
             $getAbsentSpot,
             'Get Absent Spot Success'
         );

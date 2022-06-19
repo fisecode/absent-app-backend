@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h4 class="m-b-3">Manage Employee</h4>
+                    <h4 class="m-b-3">Manage Absent Spot</h4>
                 </div>
             </div>
             <div class="row mb-2">
@@ -15,11 +15,6 @@
                         <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
                         <li class="breadcrumb-item active">Employee</li>
                     </ul>
-                </div>
-                <div class="col-sm-6 float-sm-right text-right">
-                    <a href="{{ route('employee.create') }}" data-toggle="tooltip" data-title="Create New Employee"
-                        class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
-                        Employee</a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -50,12 +45,13 @@
                             <table class="table" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>EMPLOYEE ID</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
-                                        <th>DATE OF JOINING</th>
-                                        <th>DIVISION</th>
-                                        <th>WORK FROM</th>
+                                        <th>ID</th>
+                                        <th>EMPLOYEE</th>
+                                        <th>SPOT NAME</th>
+                                        <th>LATITUDE</th>
+                                        <th>LONGITUDE</th>
+                                        <th>ADDRESS</th>
+                                        <th>STATUS</th>
                                         <th>ACTION</th>
                                     </tr>
                                 </thead>
@@ -82,42 +78,37 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: 'employee',
+                ajax: "absentspot",
                 "fnDrawCallback": function() {
                     $('[data-toggle="tooltip"]').tooltip();
                 },
                 columns: [{
-                        data: 'employee_id',
-                        name: 'employee_id'
+                        data: 'DT_RowIndex',
+                        name: 'id',
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'employee.name',
+                        name: 'employee'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'name_spot',
+                        name: 'name_spot'
                     },
                     {
-                        data: function(row) {
-                            var date = new Date(row.doj);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
-                        },
-                        name: 'doj'
+                        data: 'latitude',
+                        name: 'latitude'
                     },
                     {
-                        data: 'division',
-                        name: 'division'
+                        data: 'longitude',
+                        name: 'longitude'
                     },
                     {
-                        data: 'work_from',
-                        name: 'work_from'
+                        data: 'address',
+                        name: 'address'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'action',
