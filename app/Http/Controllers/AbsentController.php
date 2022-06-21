@@ -16,7 +16,6 @@ class AbsentController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
             $data = Absent::with('employee')->get();
 
@@ -63,7 +62,8 @@ class AbsentController extends Controller
      */
     public function show($id)
     {
-        //
+        $absent = Absent::with('employee')->findOrFail($id);
+        return view('absent.show', compact('absent'));
     }
 
     /**

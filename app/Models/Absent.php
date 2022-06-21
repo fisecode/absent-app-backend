@@ -21,7 +21,7 @@ class Absent extends Model
         'latitude',
         'absent_spot',
         'address',
-        'photoPath',
+        'photo',
         'type'
     ];
 
@@ -43,12 +43,12 @@ class Absent extends Model
     public function toArray()
     {
         $toArray = parent::toArray();
-        $toArray['photoPath'] = $this->photoPath;
+        $toArray['photo'] = $this->photo;
         return $toArray;
     }
 
     public function getPhotoPathAttribute()
     {
-        return url('') . Storage::url($this->attributes['photoPath']);
+        return url('') . Storage::url($this->attributes['photo']);
     }
 }

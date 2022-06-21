@@ -13,15 +13,10 @@
                     <ul class="breadcrumb ">
                         <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
                         <li class="breadcrumb-item"><a style="color: #ffc107"
-                                href="{{ route('employee.index') }}">Employee</a>
+                                href="{{ route('absent.index') }}">Absent</a>
                         </li>
-                        <li class="breadcrumb-item active">Manage Employee</li>
+                        <li class="breadcrumb-item active">Absent Detail</li>
                     </ul>
-                </div>
-                <div class="col-sm-6 float-sm-right text-right">
-                    <a href="{{ route('employee.edit', \Illuminate\Support\Facades\Crypt::encrypt($employee->id)) }}"
-                        data-toggle="tooltip" data-title="Edit Employee" class="btn btn-sm btn-warning"><i
-                            class="fas fa-user-edit"></i></a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -40,123 +35,78 @@
             </div>
         @endif
         <div class="container-fluid pr-3 pl-3">
-
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
                 <section class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card mb-4">
-                                <div class="card-body text-center">
-                                    @if ($employeePhoto)
-                                        <img src="{{ asset('/storage/assets/user/' . $employeePhoto) }}" alt="avatar"
-                                            class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
-                                    @else
-                                        <img src="{{ asset('/storage/assets/user/profile-picture.png') }}" alt="avatar"
-                                            class="rounded-circle" style="width: 40%; aspect-ratio: 1/1;">
-                                    @endif
-
-                                    <h5 class="my-3 mb-0">{{ $employee->name }}</h5>
-                                    <p class="text-muted mb-0">{{ $employeeId }}</p>
-                                    <p class="text-muted mb-0">{{ $employee->division }}</p>
-                                    {{-- <div class="d-flex justify-content-center mb-2">
-                                    <button type="button" class="btn btn-primary">Follow</button>
-                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                                </div> --}}
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="ion ion-clipboard mr-1"></i>
+                                Attendance
+                            </h3>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <h5>Personal Detail</h5>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->name }}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Email</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->email }}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Gender</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->gender }}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Phone</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->phone }}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date Of Birthday</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->dob) }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Address</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->address }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <h5>Company Detail</h5>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date of Joining</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ \Auth::user()->dateFormat($employee->doj) }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Work From</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $employee->work_from }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table" id="datatable">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{{ $absent->employee->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date</th>
+                                        <td>{{ \Auth::user()->dateFormat($absent->date) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status</th>
+                                        <td>{{ $absent->status ? 'Present' : '-' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Check In</th>
+                                        <td>{{ \Auth::user()->timeFormat($absent->check_in) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Check Out</th>
+                                        <td>{{ \Auth::user()->timeFormat($absent->check_out) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Absent Spot</th>
+                                        <td>{{ $absent->absent_spot }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lat, Long</th>
+                                        <td>{{ $absent->latitude }}, {{ $absent->longitude }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ $absent->address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Location</th>
+                                        <td>
+                                            <div style="width: 100%">
+                                                <iframe width="100%" height="300" title="location"
+                                                    src="https://maps.google.com/maps?q={{ $absent->latitude }},{{ $absent->longitude }}&hl=en&z=14&amp;output=embed">
+                                                </iframe>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Photo</th>
+                                        <td><img width="200"
+                                                src="{{ asset('/storage/assets/absent/' . $absent->photo) }}"
+                                                alt=""></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </section>
+                <!-- /.Left col -->
             </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
         </div>
     </section>
 @endsection

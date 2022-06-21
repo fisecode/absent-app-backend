@@ -24,7 +24,7 @@ class CreateAbsentsTable extends Migration
             $table->string('longitude');
             $table->string('latitude');
             $table->text('address');
-            $table->text('photoPath');
+            $table->string('photo');
             $table->enum('type', ['in', 'out']);
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Date;
 
 class User extends Authenticatable
 {
@@ -81,7 +82,7 @@ class User extends Authenticatable
 
     public function timeFormat($time)
     {
-        return date("G:i", strtotime($time));
+        return gmdate("H:i", strtotime($time));
     }
 
     public function employeeIdFormat($number)

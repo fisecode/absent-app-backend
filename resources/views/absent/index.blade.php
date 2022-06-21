@@ -87,30 +87,37 @@
                     },
                     {
                         data: function(row) {
-                            var date = new Date(row.date);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
+                            let utcDate = row.date;
+                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format("LL");
+                            return local;
                         },
                         name: 'date'
                     },
                     {
-                        data: 'status',
+                        data: function(row) {
+                            return row.status ? "Present" : "-"
+                        },
                         name: 'status'
                     },
                     {
                         data: function(row) {
-                            let date = new time(row.check_in);
-                            return date.toLocaleString();
-                        }
+                            let utcTime = row.check_in;
+                            let local = moment.utc(utcTime, 'HH:mm:ss').local().format("HH:mm:ss");
+
+                            return local;
+                        },
                         name: 'check_in'
                     },
                     {
-                        data: 'check_out',
+                        data: function(row) {
+                            let utcTime = row.check_out;
+                            let local = moment.utc(utcTime, 'HH:mm:ss').local().format("HH:mm:ss");
+
+                            if (row.check_out == null) {
+                                return '-';
+                            }
+                            return local;
+                        },
                         name: 'check_out'
                     },
                     {

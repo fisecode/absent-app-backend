@@ -51,7 +51,7 @@ class AbsentController extends Controller
                         'latitude'    => $request->latitude,
                         'absent_spot' => $request->absent_spot,
                         'address'     => $request->address,
-                        'photoPath'   => $this->uploadImage($photo, $request->user()->name, 'absent/' . $request->user()->name),
+                        'photo'   => $this->uploadImage($photo, $request->user()->name, 'absent'),
                         'type'        => 'in'
                     ]
                     );
