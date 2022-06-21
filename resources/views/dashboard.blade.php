@@ -47,7 +47,7 @@
                     <div class="icon">
                         <i class="fas fa-fw fa-business-time"></i>
                     </div>
-                    <a href="dahsboard/absent" class="small-box-footer">More info <i
+                    <a href="{{ route('absent.index') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>

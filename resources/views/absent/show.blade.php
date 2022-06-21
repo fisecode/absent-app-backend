@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h4 class="m-b-3">Manage Employee</h4>
+                    <h4 class="m-b-3">Manage Absent</h4>
                 </div>
             </div>
             <div class="row mb-2">
@@ -68,7 +68,13 @@
                                     </tr>
                                     <tr>
                                         <th>Check Out</th>
-                                        <td>{{ \Auth::user()->timeFormat($absent->check_out) }}</td>
+                                        <td>
+                                            @if ($absent->check_out)
+                                                {{ \Auth::user()->timeFormat($absent->check_out) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Absent Spot</th>

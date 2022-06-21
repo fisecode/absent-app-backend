@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\AbsentSpot;
+use Carbon\Carbon;
 use App\Models\Leave;
+use App\Models\AbsentSpot;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;

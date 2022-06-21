@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
+use DateTime;
+use DateTimeZone;
 use Carbon\Carbon;
-use App\Models\Employee;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Date;
 
 class User extends Authenticatable
 {
@@ -82,7 +81,10 @@ class User extends Authenticatable
 
     public function timeFormat($time)
     {
-        return gmdate("H:i", strtotime($time));
+        $timezone = 'Asia/Jakarta';
+        $date = new DateTime($time, new DateTimeZone('UTC'));
+        $date->setTimezone(new DateTimeZone($timezone));
+        return $date->format('H:i:s');
     }
 
     public function employeeIdFormat($number)
