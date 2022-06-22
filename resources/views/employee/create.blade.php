@@ -36,10 +36,11 @@
                             <div class="card mb-4">
                                 <div class="card-body text-center">
                                     <div class="form-group mt-3">
-                                        <label for="photo">Change Photo</label>
+                                        <label for="photo">Photo</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="image" accept="image/*">
+                                                <input type="file" class="custom-file-input" name="image"
+                                                    accept="image/*">
                                                 <label class="custom-file-label" for="photo">Choose file</label>
                                             </div>
                                         </div>
@@ -67,8 +68,8 @@
                                     <div class="row">
                                         <div class="form-group col-sm-6">
                                             <label for="dob">Date of Birth</label>
-                                            <input type="text" id="datepickerdob" class="form-control datetimepicker-input"
-                                                data-toggle="datetimepicker" data-target="#datepickerdob"
+                                            <input type="text" id="datepicker1" class="form-control datetimepicker-input"
+                                                data-toggle="datetimepicker" data-target="#datepicker1"
                                                 placeholder="Select Date of Birth" name="dob" required>
                                         </div>
                                         <div class="form-group col-sm-6">
@@ -120,9 +121,10 @@
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="doj">Date of Joining</label>
-                                            <input type="text" id="datepickerdoj" class="form-control datetimepicker-input"
-                                                data-toggle="datetimepicker" data-target="#datepickerdoj"
-                                                placeholder="Select Date of Joining" name="doj">
+                                            <input type="text" id="datepicker2"
+                                                class="form-control datetimepicker-input" data-toggle="datetimepicker"
+                                                data-target="#datepicker2" placeholder="Select Date of Joining"
+                                                name="doj">
                                         </div>
                                     </div>
                                     <div class="row">

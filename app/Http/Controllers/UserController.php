@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\User;
 use App\Traits\ImageStorage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -118,6 +120,7 @@ class UserController extends Controller
             return redirect()->back();
         }
         $user = User::findOrFail($id);
+        $employee = Employee::where('user_id', 'id');
         $photo = $request->file('image');
 
         if ($photo) {
@@ -131,6 +134,7 @@ class UserController extends Controller
         }
 
         $user->update($request->all());
+        $employee->update($request->all());
         session()->flash('success', 'User successfully updated.');
         return redirect()->back();
     }
@@ -181,5 +185,11 @@ class UserController extends Controller
         $user->save();
         session()->flash('success', 'Change Password Successfully.');
         return redirect()->back();
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('user.profile', compact('user'));
     }
 }
