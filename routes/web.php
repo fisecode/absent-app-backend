@@ -40,6 +40,8 @@ Route::prefix('dashboard')
         Route::get('user/{id}/password', [UserController::class, 'showPassword'])->name('show.password');
         Route::put('user/{id}/password/update', [UserController::class, 'updatePassword'])->name('update.password');
         Route::get('profile', [UserController::class, 'profile'])->name('profile');
+        Route::get('profile/update/{id}', [UserController::class, 'updateProfile'])->name('updateProfile');
+        Route::get('change-password', [UserController::class, 'updatePasswordProfile'])->name('updatePasswordProfile');
         Route::resource('employee', EmployeeController::class);
         Route::get('employee/delete/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
         Route::resource('absentspot', AbsentSpotController::class);

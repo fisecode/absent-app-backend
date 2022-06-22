@@ -20,14 +20,24 @@
     </section>
 
     <section class="content">
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
 
-        <form action="{{ route('user.update', Auth::user()->id) }}" method="post" enctype="multipart/form-data">
-            @csrf
-
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-12">
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-12">
+                <form action="{{ route('updateProfile', Auth::user()->id) }}" method="put"
+                    enctype="multipart/form-data">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card mb-4">
@@ -74,20 +84,27 @@
                                 </div>
                             </div>
 
-
                             <div class="mb-3 float-sm-right text-right">
                                 <input type="submit" value="Save Change" class="btn btn-warning" data-toggle="tooltip"
                                     data-title="Save Change">
                             </div>
 
-                            <div class="card col-lg-12">
+                        </div>
+
+                    </div>
+                </form>
+                <form action="{{ route('updatePasswordProfile') }}" method="put" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row flex-row-reverse">
+                        <div class="col-lg-8">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5>Change Password</h5>
                                     <hr>
                                     <div class="row">
                                         <div class="form-group col-sm-12">
-                                            <label for="current_assword">Current Password</label>
-                                            <input type="password" name="current_assword" class="form-control"
+                                            <label for="current_password">Current Password</label>
+                                            <input type="password" name="current_password" class="form-control"
                                                 placeholder="Enter Current Password">
                                         </div>
                                     </div>
@@ -112,7 +129,8 @@
                         <input type="submit" value="Save Change" class="btn btn-warning" data-toggle="tooltip"
                             data-title="Save Change">
                     </div>
-            </div>
-        </form>
+                </form>
+            </section>
+        </div>
     </section>
 @endsection
