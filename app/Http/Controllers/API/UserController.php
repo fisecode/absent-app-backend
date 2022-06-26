@@ -49,15 +49,19 @@ class UserController extends Controller
                 throw new InvalidArgumentException('Invalid Credentials');
             }
             if ($user->roles != 'Employee') {
-                throw new InvalidArgumentException('Invalid Credentials');
+                return ResponseFormatter::error([
+                    'message' => 'Unauthorized'
+                ], 'User Not Found', 500);
             }
+            $employee = Employee::where('user_id', $user->id)->first();
 
             //Jika User ada maka berhasil Login
             $tokenResult = $user->createToken('authToken')->plainTextToken;
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'user' => $user
+                'user' => $user,
+                'employee' => $employee
             ], 'Authenticated');
         } catch (Exception $error) {
             return ResponseFormatter::error([
