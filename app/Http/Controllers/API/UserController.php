@@ -93,8 +93,8 @@ class UserController extends Controller
 
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-                'user' => $user
+                'token_type'   => 'Bearer',
+                'user'         => $user
             ], 'User Registered');
         } catch (Exception $error) {
             return ResponseFormatter::error([
@@ -162,8 +162,10 @@ class UserController extends Controller
     {
         $employeeDetail = Employee::with('user')->where('user_id', Auth::user()->id)->get();
         return ResponseFormatter::success(
-            $employeeDetail,
-            'Data employee berhasil diambil'
+            [
+                'employee' => $employeeDetail,
+            ],
+            'Successfully fetch employee data'
         );
     }
 
