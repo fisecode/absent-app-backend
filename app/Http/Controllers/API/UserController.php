@@ -205,7 +205,7 @@ class UserController extends Controller
             $user->photo = $this->uploadImage($photo, $request->user()->name, 'user', true, $oldPhoto);
             $user->update();
 
-            return ResponseFormatter::success([$user->photo], 'File successfully uploaded');
+            return ResponseFormatter::success(['photo' => $user->photo], 'File successfully uploaded');
         }
     }
 }
