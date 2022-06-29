@@ -193,7 +193,6 @@ class EmployeeController extends Controller
             $this->deleteImage($photo, 'user');
         }
 
-        $employee->absentSpot->delete();
         $employee->delete();
         $user->delete();
         session()->flash('success', 'User successfully deleted.');

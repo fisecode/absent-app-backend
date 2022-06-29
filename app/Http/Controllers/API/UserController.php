@@ -179,7 +179,9 @@ class UserController extends Controller
         $employee->update($data);
         $employeeDetail = Employee::with('user')->where('user_id', Auth::user()->id)->get();
 
-        return ResponseFormatter::success($employeeDetail, 'Profile Updated');
+        return ResponseFormatter::success([
+            'employee' => $employeeDetail,
+        ], 'Profile Updated');
     }
 
     public function updatePhoto(Request $request)
