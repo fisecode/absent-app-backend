@@ -66,7 +66,9 @@ class LeaveController extends Controller
     {
         $leaveType = LeaveType::all();
         return ResponseFormatter::success(
-            $leaveType,
+            [
+                'leaveType' => $leaveType,
+            ],
             'List of Leave Types'
         );
     }
