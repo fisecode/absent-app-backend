@@ -155,8 +155,10 @@ class AbsentController extends Controller
         }
 
         if ($absentSpotExist->status == 'Pending') {
-            return ResponseFormatter::success(
-                [],
+            return ResponseFormatter::error(
+                [
+                    'absent_spot' => $absentSpotExist
+                ],
                 'You already request, Wait for approval.'
             );
         }
@@ -169,7 +171,9 @@ class AbsentController extends Controller
         ]);
         $absentSpotExist->update($dataAbsentSpot);
         return ResponseFormatter::success(
-            [],
+            [
+                'absent_spot' => $dataAbsentSpot,
+            ],
             'Change request absent spot has been sent.'
         );
     }
