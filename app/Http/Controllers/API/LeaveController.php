@@ -41,7 +41,9 @@ class LeaveController extends Controller
             ]);
 
             return ResponseFormatter::success(
-                $leave,
+                [
+                    'leave' => $leave,
+                ],
                 'Leave has been sent'
             );
         } catch (Exception $error) {
@@ -54,10 +56,14 @@ class LeaveController extends Controller
 
     public function history()
     {
-        $history = Leave::where('employee_id', Auth::user()->id)->with('leaveType')->get();
+        $getEmployee = Employee::where('user_id', Auth::user()->id)->first();
+        $history = Leave::where('employee_id', $getEmployee->id)->with('leaveType')->get();
+
 
         return ResponseFormatter::success(
-            $history,
+            [
+                'leave_history' => $history,
+            ],
             'List of Leave History'
         );
     }
