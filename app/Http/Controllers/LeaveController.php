@@ -19,7 +19,7 @@ class LeaveController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Leave::with('employee', 'leaveType')->get();
+            $data = Leave::with('employee', 'leaveType')->orderBy('created_at', 'desc')->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()

@@ -57,7 +57,7 @@ class LeaveController extends Controller
     public function history()
     {
         $getEmployee = Employee::where('user_id', Auth::user()->id)->first();
-        $history = Leave::where('employee_id', $getEmployee->id)->with('leaveType')->get();
+        $history = Leave::where('employee_id', $getEmployee->id)->with('leaveType')->orderBy('created_at', 'desc')->get();
 
 
         return ResponseFormatter::success(
