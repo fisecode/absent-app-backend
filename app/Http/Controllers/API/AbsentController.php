@@ -149,7 +149,9 @@ class AbsentController extends Controller
             ]);
             $absentSpot->create($dataAbsentSpot);
             return ResponseFormatter::success(
-                [],
+                [
+                    'absent_spot' => $dataAbsentSpot,
+                ],
                 'Change request absent spot has been sent.'
             );
         }
