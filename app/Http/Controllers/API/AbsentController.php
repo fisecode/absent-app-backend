@@ -183,9 +183,12 @@ class AbsentController extends Controller
     public function getAbsentSpot()
     {
         $getEmployee   = Employee::where('user_id', Auth::user()->id)->first();
-        $getAbsentSpot = Employee::with('absentSpot')->where('id', $getEmployee->id)->get();
+        $getAbsentSpot = AbsentSpot::where('employee_id', $getEmployee->id)->first();
         return ResponseFormatter::success(
-            $getAbsentSpot,
+            [
+                'absent_spot' => $getAbsentSpot,
+            ],
+
             'Get Absent Spot Success'
         );
     }
