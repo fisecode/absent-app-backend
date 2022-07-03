@@ -20,15 +20,6 @@ class AbsentController extends Controller
     public function absent(Request $request)
     {
         try {
-            $request->validate([
-                'longitude'   => ['required'],
-                'latitude'    => ['required'],
-                'absent_spot' => ['required'],
-                'address'     => ['required'],
-                'photo'       => ['required'],
-                'type'        => ['in:in,out', 'required'],
-            ]);
-
             $date                = date("Y-m-d");
             $time                = date("H:i:s");
             $photo               = $request->file('photo');
@@ -40,6 +31,16 @@ class AbsentController extends Controller
                 ->first();
 
             if ($absentType == 'in') {
+
+                $request->validate([
+                    'longitude'   => ['required'],
+                    'latitude'    => ['required'],
+                    'absent_spot' => ['required'],
+                    'address'     => ['required'],
+                    'photo'       => ['required'],
+                    'type'        => ['in:in,out', 'required'],
+                ]);
+
                 if (!$employeeAbsentToday) {
                     $dataAbsent = ([
                         'employee_id' => $getEmployee->id,
