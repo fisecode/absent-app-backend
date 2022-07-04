@@ -45,14 +45,14 @@ class AbsentController extends Controller
                     $dataAbsent = ([
                         'employee_id' => $getEmployee->id,
                         'date'        => $date,
-                        'status'      => "-",
+                        'status'      => null,
                         'check_in'    => $time,
-                        'check_out'   => "00:00:00",
+                        'check_out'   => null,
                         'longitude'   => $request->longitude,
                         'latitude'    => $request->latitude,
                         'absent_spot' => $request->absent_spot,
                         'address'     => $request->address,
-                        'photo'   => $this->uploadImage($photo, $request->user()->name, 'absent'),
+                        'photo'       => $this->uploadImage($photo, $request->user()->name, 'absent'),
                         'type'        => 'in'
                     ]
                     );
