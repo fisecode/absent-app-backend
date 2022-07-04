@@ -24,8 +24,8 @@ class AbsentController extends Controller
             $time                = date("H:i:s");
             $photo               = $request->file('photo');
             $absentType          = $request->type;
-            $absent              = new Absent;
             $getEmployee         = Employee::where('user_id', Auth::user()->id)->first();
+            $absent              = Absent::where('employee_id', $getEmployee->id)->first();
             $employeeAbsentToday = Absent::where('employee_id', $getEmployee->id)
                 ->whereDate('created_at', Carbon::today())
                 ->first();
@@ -45,9 +45,9 @@ class AbsentController extends Controller
                     $dataAbsent = ([
                         'employee_id' => $getEmployee->id,
                         'date'        => $date,
-                        'status'      => null,
+                        'status'      => "-",
                         'check_in'    => $time,
-                        'check_out'   => null,
+                        'check_out'   => "00:00:00",
                         'longitude'   => $request->longitude,
                         'latitude'    => $request->latitude,
                         'absent_spot' => $request->absent_spot,
@@ -59,12 +59,12 @@ class AbsentController extends Controller
                     $absent->create($dataAbsent);
 
                     return ResponseFormatter::success(
-                        $dataAbsent,
+                        ['absent' => null],
                         'Employee successfully check in'
                     );
                 }
                 return ResponseFormatter::success(
-                    [],
+                    ['absent' => null],
                     'Employee has been checked in'
                 );
             }
@@ -73,7 +73,7 @@ class AbsentController extends Controller
                 if ($employeeAbsentToday) {
                     if ($employeeAbsentToday->status == 'Present') {
                         return ResponseFormatter::success(
-                            [],
+                            ['absent' => null],
                             'Employee has been checked out'
                         );
                     }
@@ -85,12 +85,12 @@ class AbsentController extends Controller
                     $employeeAbsentToday->update($dataAbsent);
 
                     return ResponseFormatter::success(
-                        $dataAbsent,
+                        ['absent' => null],
                         'Employee successfully check out'
                     );
                 }
                 return ResponseFormatter::success(
-                    [],
+                    ['absent' => null],
                     'Please do check in first'
                 );
             }
@@ -121,7 +121,7 @@ class AbsentController extends Controller
             )->get();
 
         return ResponseFormatter::success(
-            $history,
+            ['absent' => $history],
             'list of presences by user'
         );
     }

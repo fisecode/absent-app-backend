@@ -16,8 +16,9 @@ class AbsentController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
-            $data = Absent::with('employee')->get();
+            $data = Absent::with('employee')->orderBy('created_at', 'desc')->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()
