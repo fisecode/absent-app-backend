@@ -25,7 +25,7 @@ class AbsentController extends Controller
             $photo               = $request->file('photo');
             $absentType          = $request->type;
             $getEmployee         = Employee::where('user_id', Auth::user()->id)->first();
-            $absent              = Absent::where('employee_id', $getEmployee->id)->first();
+            $absent              = Absent::where('employee_id', $getEmployee->id);
             $employeeAbsentToday = Absent::where('employee_id', $getEmployee->id)
                 ->whereDate('created_at', Carbon::today())
                 ->first();
