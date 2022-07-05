@@ -64,13 +64,13 @@
                                     </tr>
                                     <tr>
                                         <th>Check In</th>
-                                        <td>{{ \Auth::user()->timeFormat($absent->check_in) }}</td>
+                                        <td>{{ $absent->check_in }}</td>
                                     </tr>
                                     <tr>
                                         <th>Check Out</th>
                                         <td>
                                             @if ($absent->check_out)
-                                                {{ \Auth::user()->timeFormat($absent->check_out) }}
+                                                {{ $absent->check_out }}
                                             @else
                                                 -
                                             @endif

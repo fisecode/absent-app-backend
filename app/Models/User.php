@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     public function dateFormat($date)
     {
-        return date("j M Y", strtotime($date));
+        return date("j F Y", strtotime($date));
     }
 
     public function timeFormat($time)

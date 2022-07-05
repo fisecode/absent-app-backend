@@ -100,14 +100,10 @@
                     },
                     {
                         data: function(row) {
-                            var date = new Date(row.doj);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
+                            let utcDate = row.doj;
+                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format(
+                                "DD MMM YYYY");
+                            return local;
                         },
                         name: 'doj'
                     },

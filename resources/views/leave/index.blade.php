@@ -93,40 +93,28 @@
                     },
                     {
                         data: function(row) {
-                            var date = new Date(row.applied_on);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
+                            let utcDate = row.applied_on;
+                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format(
+                                "DD MMM YYYY");
+                            return local;
                         },
                         name: 'applied_on'
                     },
                     {
                         data: function(row) {
-                            var date = new Date(row.start_date);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
+                            let utcDate = row.start_date;
+                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format(
+                                "DD MMM YYYY");
+                            return local;
                         },
                         name: 'start_date'
                     },
                     {
                         data: function(row) {
-                            var date = new Date(row.end_date);
-                            var options = {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                            };
-
-                            return date.toLocaleDateString('id-ID', options);
+                            let utcDate = row.end_date;
+                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format(
+                                "DD MMM YYYY");
+                            return local;
                         },
                         name: 'end_date'
                     },

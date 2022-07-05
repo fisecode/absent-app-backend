@@ -87,8 +87,9 @@
                     },
                     {
                         data: function(row) {
-                            let utcDate = row.date;
-                            let local = moment.utc(utcDate, 'YYYY-MM-DD').local().format("LL");
+                            let date = row.date;
+                            let local = moment(date).local().format(
+                                "DD MMM YYYY");
                             return local;
                         },
                         name: 'date'
@@ -101,19 +102,19 @@
                     },
                     {
                         data: function(row) {
-                            let utcTime = row.check_in;
-                            let local = moment.utc(utcTime, 'HH:mm:ss').local().format("HH:mm:ss");
-
+                            let time = row.check_in;
+                            let local = moment(time, "HH:mm:ss").local().format(
+                                "HH:mm");
                             return local;
                         },
                         name: 'check_in'
                     },
                     {
                         data: function(row) {
-                            let utcTime = row.check_out;
-                            let local = moment.utc(utcTime, 'HH:mm:ss').local().format("HH:mm:ss");
-
-                            if (row.check_out == null) {
+                            let time = row.check_out;
+                            let local = moment(time, "HH:mm:ss").local().format(
+                                "HH:mm");
+                            if (time == null) {
                                 return '-';
                             }
                             return local;

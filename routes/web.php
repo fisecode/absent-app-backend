@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\AbsentSpotController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,10 @@ Route::get('/', function () {
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/forgot-password', function () {
-    return view('adminlte::auth.passwords.reset');
+    return view('adminlte::auth.passwords.email');
 })->name('password.request');
+
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 
 Route::prefix('dashboard')
     ->middleware(['auth:sanctum', 'admin'])

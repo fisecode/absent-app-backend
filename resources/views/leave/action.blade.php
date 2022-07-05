@@ -12,15 +12,15 @@
             </tr>
             <tr>
                 <th>Applied On</th>
-                <td>{{ $leave->applied_on }}</td>
+                <td>{{ \Auth::user()->dateFormat($leave->applied_on) }}</td>
             </tr>
             <tr>
                 <th>Start Date</th>
-                <td>{{ $leave->start_date }}</td>
+                <td>{{ \Auth::user()->dateFormat($leave->start_date) }}</td>
             </tr>
             <tr>
                 <th>End Date</th>
-                <td>{{ $leave->end_date }}</td>
+                <td>{{ \Auth::user()->dateFormat($leave->end_date) }}</td>
             </tr>
             <tr>
                 <th>Leave Reason</th>
