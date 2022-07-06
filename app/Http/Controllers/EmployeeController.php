@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class EmployeeController extends Controller
 {
@@ -213,5 +214,16 @@ class EmployeeController extends Controller
         }
 
         return $latest->employee_id + 1;
+    }
+
+    public function cetak_pdf($id)
+    {
+        $employee = Employee::find($id);
+        $employeePhoto = User::where('id', $employee->user_id)->get()->pluck('photo')->first();
+        $employeeId = \Auth::user()->employeeIdFormat($employee->employee_id);
+        $view = view('employee.pdf', compact('employee', 'employeePhoto', 'employeeId'))->render();
+
+        $pdf = PDF::loadHTML($view)->setPaper('a4', 'potrait')->setWarnings(false)->save('myfile.pdf');
+        return $pdf->download('laporan-pegawai-pdf');
     }
 }

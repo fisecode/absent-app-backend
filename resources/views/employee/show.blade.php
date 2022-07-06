@@ -22,6 +22,8 @@
                     <a href="{{ route('employee.edit', \Illuminate\Support\Facades\Crypt::encrypt($employee->id)) }}"
                         data-toggle="tooltip" data-title="Edit Employee" class="btn btn-sm btn-warning"><i
                             class="fas fa-user-edit"></i></a>
+                    {{-- <a href="{{ route('employee.pdf', $employee->id) }}" data-toggle="tooltip" data-title="Print PDF"
+                        class="btn btn-sm btn-warning"><i class="fas fa-user-edit"></i></a> --}}
                 </div>
             </div>
         </div><!-- /.container-fluid -->

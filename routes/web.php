@@ -47,6 +47,7 @@ Route::prefix('dashboard')
         Route::get('change-password', [UserController::class, 'updatePasswordProfile'])->name('updatePasswordProfile');
         Route::resource('employee', EmployeeController::class);
         Route::get('employee/delete/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
+        Route::get('employee/cetak_pdf/{id}', [EmployeeController::class, 'cetak_pdf'])->name('employee.pdf');
         Route::resource('absentspot', AbsentSpotController::class);
         Route::get('absentspot/delete/{absentspot}', [AbsentSpotController::class, 'delete'])->name('absentspot.delete');
         Route::get('absentspot/{absentspot}/action', [AbsentSpotController::class, 'action'])->name('absentspot.action');
