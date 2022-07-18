@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leave;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\LeaveType;
+use App\Exports\ExportLeave;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class LeaveController extends Controller
@@ -157,5 +159,10 @@ class LeaveController extends Controller
         }
         $leave->save();
         return redirect()->route('leave.index')->with('success', 'Absent Spot status successfully updated.');
+    }
+
+    public function exportLeaves(Request $request)
+    {
+        return Excel::download(new ExportLeave, 'leaves.xlsx');
     }
 }

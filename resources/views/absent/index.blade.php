@@ -16,6 +16,10 @@
                         <li class="breadcrumb-item active">Absent</li>
                     </ul>
                 </div>
+                <div class="col-sm-6 float-sm-right text-right">
+                    <a href="{{ route('export-absents') }}" data-toggle="tooltip" data-title="Export Excel"
+                        class="btn btn-sm btn-warning"><i class="fas fa-file-excel"></i></a>
+                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>

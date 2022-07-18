@@ -48,6 +48,7 @@ Route::prefix('dashboard')
         Route::resource('employee', EmployeeController::class);
         Route::get('employee/delete/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
         Route::get('employee/cetak_pdf/{id}', [EmployeeController::class, 'cetak_pdf'])->name('employee.pdf');
+        Route::get('export-employees', [EmployeeController::class, 'exportEmployees'])->name('export-employees');
         Route::resource('absentspot', AbsentSpotController::class);
         Route::get('absentspot/delete/{absentspot}', [AbsentSpotController::class, 'delete'])->name('absentspot.delete');
         Route::get('absentspot/{absentspot}/action', [AbsentSpotController::class, 'action'])->name('absentspot.action');
@@ -58,5 +59,7 @@ Route::prefix('dashboard')
         Route::get('leave/delete/{id}', [LeaveController::class, 'delete'])->name('leave.delete');
         Route::get('leave/{id}/action', [LeaveController::class, 'action'])->name('leave.action');
         Route::post('leave/{id}/approval', [LeaveController::class, 'approval'])->name('leave.approval');
+        Route::get('export-leaves', [LeaveController::class, 'exportLeaves'])->name('export-leaves');
         Route::resource('absent', AbsentController::class);
+        Route::get('export-absents', [AbsentController::class, 'exportAbsents'])->name('export-absents');
     });

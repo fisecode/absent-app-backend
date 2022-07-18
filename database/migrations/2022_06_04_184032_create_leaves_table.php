@@ -20,9 +20,9 @@ class CreateLeavesTable extends Migration
             $table->date('applied_on');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('total_leave_days');
-            $table->string('leave_reason');
-            $table->string('status');
+            $table->string('total_leave_days', 50);
+            $table->string('leave_reason', 100);
+            $table->string('status', 20);
             $table->timestamps();
         });
     }

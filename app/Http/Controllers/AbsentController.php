@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportAbsent;
 use App\Models\Absent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class AbsentController extends Controller
@@ -99,5 +101,10 @@ class AbsentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportAbsents(Request $request)
+    {
+        return Excel::download(new ExportAbsent, 'absents.xlsx');
     }
 }

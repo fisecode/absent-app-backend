@@ -18,8 +18,10 @@
                 </div>
                 <div class="col-sm-6 float-sm-right text-right">
                     <a href="{{ route('employee.create') }}" data-toggle="tooltip" data-title="Create New Employee"
-                        class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
-                        Employee</a>
+                        class="btn btn-sm btn-warning"><i class="fas fa-plus"></i></a>
+
+                    {{-- <a href="{{ route('export-employees') }}" data-toggle="tooltip" data-title="Print"
+                        class="btn btn-sm btn-warning"><i class="fas fa-file-excel"></i></a> --}}
                 </div>
             </div>
         </div><!-- /.container-fluid -->

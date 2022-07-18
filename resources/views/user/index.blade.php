@@ -19,8 +19,7 @@
                 </div>
                 <div class="col-sm-6 float-sm-right text-right">
                     <a href="#" data-url="{{ route('user.create') }}" data-ajax-popup="true" data-toggle="tooltip"
-                        data-title="Create New Admin" class="btn btn-sm btn-warning"><i class="fas fa-plus"></i> Add
-                        Admin</a>
+                        data-title="Create New Admin" class="btn btn-sm btn-warning"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->

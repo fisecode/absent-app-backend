@@ -17,10 +17,10 @@ class CreateAbsentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->date('date');
-            $table->string('status')->nullable();
+            $table->string('status', 20)->nullable();
             $table->time('check_in');
             $table->time('check_out')->nullable();
-            $table->string('absent_spot');
+            $table->string('absent_spot', 10);
             $table->string('longitude');
             $table->string('latitude');
             $table->text('address');
