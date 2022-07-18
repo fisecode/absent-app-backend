@@ -15,7 +15,7 @@ class CreateAbsentSpotsTable extends Migration
     {
         Schema::create('absent_spots', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->string('name_spot')->default('Office');
             $table->string('latitude');
             $table->string('longitude');

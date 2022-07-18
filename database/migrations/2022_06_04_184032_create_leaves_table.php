@@ -15,8 +15,8 @@ class CreateLeavesTable extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
-            $table->integer('leave_type_id');
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('leave_type_id');
             $table->date('applied_on');
             $table->date('start_date');
             $table->date('end_date');
