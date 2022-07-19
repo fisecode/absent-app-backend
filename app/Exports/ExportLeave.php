@@ -17,8 +17,6 @@ class ExportLeave implements FromCollection, WithHeadings, WithMapping, WithStyl
     public function collection()
     {
         $leaves = Leave::with('employee', 'leaveType')->get();
-        // $e = $leaves->employee->name;
-        // dd($leaves);
         return $leaves;
     }
 

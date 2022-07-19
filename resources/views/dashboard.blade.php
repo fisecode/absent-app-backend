@@ -3,17 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4 class="m-b-3">Dashboard</h4>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ul class="breadcrumb ">
+                    <li class="breadcrumb-item"><a style="color: #ffc107" href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
 @stop
 
 @section('content')
@@ -54,7 +58,7 @@
         </div>
         <!-- ./col -->
         <!-- Main row -->
-        <div class="row">
+        {{-- <div class="row">
             <!-- Left col -->
             <section class="col-lg-12">
 
@@ -73,7 +77,7 @@
                 <!-- /.card -->
             </section>
             <!-- /.Left col -->
-        </div>
+        </div> --}}
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 @stop
